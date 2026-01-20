@@ -4,15 +4,16 @@ import {
     FormControl,
     FormLabel,
     Heading,
-    HStack,
+    Switch,
     VStack,
     Input,
     SimpleGrid,
     Textarea,
     Button,
+   
 } from "@chakra-ui/react";
 import { Select } from "@chakra-ui/react";
-import { color, px } from "motion-dom";
+
 
 export default function Informacoes() {
 
@@ -29,16 +30,17 @@ export default function Informacoes() {
             color="#171717"
         >
             <Box
-                w="100%"
-                maxW="1200px"
+                  w="100%"
+                maxW="90vw"
                 bg="white"
                 p={10}
                 borderRadius="xl"
                 boxShadow="xl"
+                m="auto"
             >
 
 
-                <Heading size="md" mb="{6}"> Página de Informações
+                <Heading size="md" mb={6}> Registre uma nova atividade
                 </Heading>
                 <Box>
 
@@ -51,23 +53,16 @@ export default function Informacoes() {
                         </FormControl>
 
                         <FormControl>
-                            <FormLabel>Data:</FormLabel>
+                            <FormLabel>Data da atividade:</FormLabel>
                             <Input type="date" />
-                        </FormControl>
+                        </FormControl>                 
                         </SimpleGrid>
 
-                        <FormControl>
-                            <FormLabel>Descreva sua mensagem:</FormLabel>
-                            <Textarea maxW={'80vH'}
-                                placeholder='Descreva sua mensagem'
-                         />       
-                        </FormControl>
-
-                          <SimpleGrid columns={{ base:1, md:2}} spacing={6} w="100%">   
+                        <SimpleGrid columns={{ base:1, md:2}} spacing={6} w="100%">   
                         <FormControl>
                         <FormLabel>Responsável pela realização:</FormLabel>
                         <Input type="text" placeholder="Digite o nome do responsável pela realização" />
-                    </FormControl>
+                        </FormControl>
 
 
                     <FormControl>
@@ -90,6 +85,13 @@ export default function Informacoes() {
                     </FormControl>
                 </SimpleGrid>
 
+                  <FormControl >
+                            <FormLabel>Descreva sua mensagem:</FormLabel>
+                            <Textarea w="100%"
+                            placeholder='Descreva sua mensagem'
+                         />       
+                 </FormControl>
+
                 <Button
                     type="submit"
                     bgColor='gray.500'
@@ -102,5 +104,5 @@ export default function Informacoes() {
             </Box>
         </Box>
     </Flex >
-    );
+    )
 }
