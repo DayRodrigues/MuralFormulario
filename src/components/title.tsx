@@ -3,9 +3,18 @@ import { Flex, Text } from "@chakra-ui/react";
 
 const Title = () => {
     return (
-     
-    <Flex py="0" width="100%" flexDirection="column" margin="30px">          
-    <Text fontSize="28px" fontWeight="600" fontStyle="semibold">
+    
+    <Flex 
+    px="10px" 
+    margin="8px"
+    align="center" 
+    >          
+    
+    <Text 
+    fontSize={{base:"18", lg:"28"}} 
+    color="#666" 
+    fontWeight="medium"
+    >
          Mural escolar 
     </Text>
     </Flex>  

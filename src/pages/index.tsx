@@ -2,13 +2,10 @@ import Head from "next/head"
 import Informacoes from "../components/informacoes"
 import { main } from "framer-motion/m"
 import Header from "../components/header";
+import HeaderMenu from "@/components/headerMenu";
 import Title from "../components/title";
 import Footer from "../components/footer";
 import ButtonAtividade from "@/components/buttonAtividade";
-
-
-
-
 
 export default function Home() {
   return (
@@ -22,8 +19,9 @@ export default function Home() {
        </Head>
 
         <Header />
-        <Title />
+        <HeaderMenu />
         <hr />
+        <Title />
         <ButtonAtividade />
         <Informacoes />
         <Footer />

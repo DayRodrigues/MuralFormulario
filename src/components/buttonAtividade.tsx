@@ -1,20 +1,25 @@
-import { Button, Flex, Icon, Text } from "@chakra-ui/react";
+import { Button, Flex, Icon, Text,} from "@chakra-ui/react";
 import { IoMdAddCircleOutline } from "react-icons/io";
 
 export default function ButtonAtividade() {
 
     return (
         <Flex
-            py={4}
-            pr={{ base: 2, md: 12 }}
-            justify={{ base: "center", md: "flex-end" }}>
-
-            <Button
+            align="center"
+            justify={{ base: "center", md: "flex-end" }}
+            mt={{ base: 6 }}
+            pr={{ base: 2 }}
+            >
+            <Button 
+                color="white"
                 bg="green.400"
-
+                _hover={{
+                color: "gray.300"
+                }}             
             >
                 <Icon as={IoMdAddCircleOutline} boxSize={5} mr={2} />
-                <Text fontWeight="bold-300">Registrar atividade</Text>
+                <Text fontWeight="bold">Novo registro </Text>
+                 
             </Button>
 
         </Flex>
