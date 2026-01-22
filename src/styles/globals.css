@@ -6,3 +6,22 @@ html, body {
 * {
   box-sizing: border-box;
 }
+
+.Info {
+  padding:10px;
+  color:#666;
+}
+
+.Formulario {
+  width: 90%;
+  padding: 20px;
+  margin:7;
+  background: white;
+  border-radius: xl;  
+  box-shadow: 2xl;
+}
+
+.Title {
+  color:#666;
+  font-weight:medium;
+}

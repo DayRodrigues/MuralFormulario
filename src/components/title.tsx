@@ -10,12 +10,10 @@ const Title = () => {
     align="center" 
     >          
     
-    <Text 
+    <Text className="Title"
     fontSize={{base:"18", lg:"28"}} 
-    color="#666" 
-    fontWeight="medium"
     >
-         Mural escolar 
+     Mural escolar 
     </Text>
     </Flex>  
     

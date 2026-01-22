@@ -12,25 +12,63 @@ import {
     Button,
 } from "@chakra-ui/react";
 import { Select } from "@chakra-ui/react";
+import { FunctionComponent} from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from 'yup';
 
 
-export default function Informacoes() {
+const schema =  yup.object ({
+    titulo: yup.string().required(),
+    publicarPara:yup.string().required(), 
+    destacar:yup.string().required(), 
+    responsavel: yup.string().required(),    
+    funcao:yup.string().required(),     
+    seguimento:yup.string().required(),
+    anexarImagem:yup.string().required(),  
+    descreverMensagem:yup.string().required(),  
+});
 
+ const Informacoes: FunctionComponent = () => {
+   const {
+    register, 
+    handleSubmit, 
+    formState: { errors }
+} = useForm ({
+    resolver: yupResolver(schema)
+   });
+    
+   function onSubmit (data:any){
+    console.log(data)    
+}
+
+    function setErros(error: any){
+        console.log('Errors', error)
+    }
+
+interface formularioProps{
+    titulo: string;
+    data: string;
+    publicarPara: string;
+    destacar: boolean;
+    responsavel: string;
+    funcao: string;
+    seguimento: string;
+    anexarImagem ?: string | null;
+    descreverMensagem: string;    
+    onSubmit: () => void;
+    handleSubmit: () => void;
+}
+
+ 
+ 
     return (
-        <Flex
-            p="10px"
-            align="center"
-            justify="center"
-            color="#666"
+        <Flex className="Info"
+           align= "center"
+           justify="center"
         >
-            <Box
-                w="90%"
-                p="20px"
-                margin="7"
-                bg="white"
-                borderRadius="xl"
-                boxShadow="2xl"
-            >
+            <Box className="Formulario"
+              >
                 <Heading
                 fontSize={{base:"18px", md:"18px", lg:"28px" }}
                 > 
@@ -38,9 +76,9 @@ export default function Informacoes() {
                 </Heading>
                 <Box 
                 marginTop={{base:"10%", md:"2%", lg:"2%"}}
-               
                 
                 >
+                    <form action="" autoComplete='off' onSubmit={handleSubmit(onSubmit, setErros)}>
                     <VStack spacing={4} align="stretch">
                         <SimpleGrid 
                         columns={{base:1, md:4, lg:4}}
@@ -48,21 +86,31 @@ export default function Informacoes() {
                         
                         <FormControl >
                             <FormLabel>Título:</FormLabel>
-                            <Input type="text" placeholder="Digite o título" />
+                            <Input 
+                            type="text" 
+                            placeholder="Digite o título"
+                            {... register('titulo')}
+                             />
                         </FormControl>
 
                         <FormControl>
                             <FormLabel>Data da realização:</FormLabel>
-                            <Input type="date" />
+                            <Input 
+                            type="date"
+                            {... register('data')}
+                            />
                         </FormControl>  
                      
                          <FormControl>
                         <FormLabel>Publicar para:</FormLabel>
-                        <Select>
+                        <Select
+                        {... register('publicarPara')}
+                        >
                             <option value="Todos">Todos</option>
                             <option value="Gestor">Gestores</option>
                             <option value="Professor">Professores</option>
                             <option value="Aluno">Alunos</option>
+                            
                         </Select>
                         </FormControl>
                         
@@ -70,7 +118,9 @@ export default function Informacoes() {
                         <FormLabel >
                             Destacar no mural:
                         </FormLabel>
-                        <Switch />
+                        <Switch 
+                        {... register('destacar')}
+                        />
                         </FormControl>
                         </SimpleGrid>
 
@@ -78,13 +128,19 @@ export default function Informacoes() {
                         spacing={4}>   
                         <FormControl>
                         <FormLabel>Responsável pela realização:</FormLabel>
-                        <Input type="text" placeholder="Digite o nome do responsável pela realização" />
+                        <Input 
+                        type="text" 
+                        placeholder="Digite o nome"
+                        {... register('responsavel')}
+                        />
                         </FormControl>
 
 
                     <FormControl>
                         <FormLabel>Função:</FormLabel>
-                        <Select>
+                        <Select
+                        {... register('funcao')}
+                        >
                             <option value="Todos">Todos</option>
                             <option value="Diretor">Diretor(a)</option>
                             <option value="ViceDiretor">Vice-Diretor(a)</option>
@@ -95,7 +151,10 @@ export default function Informacoes() {
 
                     <FormControl>
                         <FormLabel>Selecione o seguimento:</FormLabel>
-                        <Select placeholder="Selecione">
+                        <Select 
+                       {... register('seguimento')}
+                        >    
+                            <option value="Todos"> Todos</option>
                             <option value="Educacao Infantil"> Educação Infantil</option>
                             <option value="Anos Inicias"> Anos Iniciais</option>
                             <option value="Anos Finais"> Anos Finais</option>
@@ -107,37 +166,47 @@ export default function Informacoes() {
                         <FormLabel>Anexar imagem:</FormLabel>
                         <Input
                             type="file"
+                            {... register('anexarImagem')}
                             accept="image/*"
                             multiple
+                            
                         />
-                        <button 
+                        <Button 
+                        type="button"
                         >Salvar
-                        </button>
-                        <button
+                        </Button>
+                        
+                        <Button
+                        type="button"
                          >
                         Excluir
-                        </button>
+                        </Button>
                         </FormControl>
 
-                  <FormControl >
+                      <FormControl >
                             <FormLabel>Assunto:</FormLabel>
                             <Textarea 
+                            {... register('descreverMensagem')}
                             placeholder='Descreva sua mensagem...'
                          />       
-                 </FormControl>
+                    </FormControl>
 
                 <Button
                     type="submit"
                     bgColor='green.400'
                     color="White"
+                    
                     _hover={{
                     color: "gray.300"
                     }}
                     alignSelf={"flex-start"}
                 >Públicar</Button>
                 </VStack>
+                </form>
             </Box>
         </Box>
     </Flex >
     )
-}
+ }
+
+export default Informacoes;

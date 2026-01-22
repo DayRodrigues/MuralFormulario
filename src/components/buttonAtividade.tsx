@@ -11,6 +11,7 @@ export default function ButtonAtividade() {
             pr={{ base: 2 }}
             >
             <Button 
+                type="submit"
                 color="white"
                 bg="green.400"
                 _hover={{
