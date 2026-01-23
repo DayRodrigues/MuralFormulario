@@ -13,16 +13,15 @@ export default function ButtonAtividade() {
             <Button 
                 type="submit"
                 color="white"
-                bg="green.400"
+                bg="blue.400"
                 _hover={{
-                color: "gray.300"
+                bg:"green.400"
+                
                 }}             
             >
                 <Icon as={IoMdAddCircleOutline} boxSize={5} mr={2} />
                 <Text fontWeight="bold">Novo registro </Text>
-                 
             </Button>
-
         </Flex>
     )
 }
