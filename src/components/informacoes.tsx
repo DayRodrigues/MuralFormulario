@@ -10,62 +10,68 @@ import {
     SimpleGrid,
     Textarea,
     Button,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 import { Select } from "@chakra-ui/react";
-import { FunctionComponent} from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from 'yup';
+import { FormErrorMessage } from '@hookform/error-message';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from "zod";
 
+ const registroSchema = z.object({
+ titulo: z
+ .string()
+ .min(1 {message: "Informe o título."}),
+ realizacao: z
+ .string()
+ .min(1{message: "Informe a data de realização."}),
+ publicarPara: z
+ .string()
+ .min(1{message: "Informe para quem será públicado."}),
+ destacar: z
+ .string()
+ .min(1),
+ resonsavel: z
+ .string()
+ .min(1{message: "Informe o responsável."}),
+ funcao:z
+ .string()
+ .min(1{message: "Informe a função."}),
+ seguimento: z
+ .string()
+ .min(1{message: "Informe o seguimento."}),
+ imagem: z
+ .string()
+ .min(1),
+ assunto: z
+ .string()
+ .min(1{message: "Descreva o assunto."}),
+ })
 
-const schema =  yup.object ({
-    titulo: yup.string().required('Preencha o título'),
-    realizacao: yup.string().required('Informe a data'),
-    publicarPara:yup.string().required('Informe para quem será públicado'), 
-    destacar:yup.boolean().default(false),
-    responsavel: yup.string().required('Informe o responsavel'),    
-    funcao:yup.string().required('Informe a função'),     
-    seguimento:yup.string().required('Informe seguinto'),
-    anexarImagem:yup.mixed().notRequired(),  //estudando sobre o tipo FileList
-    descreverMensagem:yup.string().required('Descreva sua mensagem'),  
-});
+ type UserRegister = z.infer<typeof registroSchema>;
 
- const Informacoes: FunctionComponent = () => {
-   const {
-    register, 
-    handleSubmit, 
-    formState: { errors }
-} = useForm ({
-    resolver: yupResolver(schema),
-   });
-    
-    const onSubmit: SubmitHandler<FormularioData> = (data) => {
-    console.log(data);
-    };
+ const{
+    handleSubmit,
+    register,
+    setValue,
+    setError,
+    formState: { isSubmitting, errors },
+ } = userForm <registroSchema>({ resolver: zodResolver(UserRegister)});
 
-    function setErros(error: any){
-        console.log('Errors', error)
-    }
-
-interface FormularioData{
-    titulo: string;
-    realizacao: string;
-    publicarPara: string;
-    destacar: boolean;
-    responsavel: string;
-    funcao: string;
-    seguimento: string;
-    anexarImagem?: any; //estudando sobre o tipo FileList
-    descreverMensagem: string;
-}
-
+ const Informacoes = () => {
  
     return (
-        <Flex className="Info"
-           align= "center"
+        <Flex 
+           align= {{base:"center", md:"center", lg:"center"}}
            justify="center"
+           p= "10px"
+           color="#666"
         >
-            <Box className="Formulario"
+            <Box 
+             w= "90%"
+             p= "20px"
+             margin= {{base:"auto", md:"auto", lg:"auto"}}
+             borderColor="gray.400"
+             borderRadius="xl"
+             boxShadow="2xl"
               >
                 <Heading
                 fontSize={{base:"18px", md:"18px", lg:"28px" }}
@@ -74,9 +80,8 @@ interface FormularioData{
                 </Heading>
                 <Box 
                 marginTop={{base:"10%", md:"2%", lg:"2%"}}
-                
                 >
-                    <form action="" autoComplete='off' onSubmit={handleSubmit(onSubmit, setErros)}>
+                    <form action="" autoComplete='off'>
                     <VStack spacing={4} align="stretch">
                         <SimpleGrid 
                         columns={{base:1, md:4, lg:4}}
@@ -87,32 +92,27 @@ interface FormularioData{
                             <Input 
                             type="text" 
                             placeholder="Digite o título"
-                            {... register('titulo')}
+                            
                             />
-                             <p style={{color:'red'}}>{errors?.titulo?.message}</p>
                         </FormControl>
 
                         <FormControl>
                             <FormLabel>Data da realização:</FormLabel>
                             <Input 
                             type="date"
-                            {... register('realizacao')}
                             />
-                            <p style={{color:'red'}}>{errors?.realizacao?.message}</p>
                         </FormControl>  
                      
                          <FormControl>
                         <FormLabel>Publicar para:</FormLabel>
                         <Select
                          placeholder="Selecione uma opção"
-                        {... register('publicarPara')}
                         >
                             <option value="Todos">Todos</option>
                             <option value="Gestor">Gestores</option>
                             <option value="Professor">Professores</option>
                             <option value="Aluno">Alunos</option>
                         </Select>
-                        <p style={{color:'red'}}>{errors?.publicarPara?.message}</p>
                         </FormControl>
                         
                         <FormControl display="flex" alignItems="center">
@@ -120,7 +120,6 @@ interface FormularioData{
                             Destacar no mural:
                         </FormLabel>
                         <Switch 
-                         {...register('destacar')} 
                         />
                         </FormControl>
                         </SimpleGrid>
@@ -132,17 +131,13 @@ interface FormularioData{
                         <Input 
                         type="text" 
                         placeholder="Digite o nome"
-                        {... register('responsavel')}
                         />
-                        <p style={{color:'red'}}>{errors?.responsavel?.message}</p>
                         </FormControl>
-
 
                     <FormControl>
                         <FormLabel>Função:</FormLabel>
                         <Select
                         placeholder="Selecione uma opção"
-                        {... register('funcao')}
                         >
                             <option value="Todos">Todos</option>
                             <option value="Diretor">Diretor(a)</option>
@@ -150,21 +145,18 @@ interface FormularioData{
                             <option value="Coordenador">Coordenador(a)</option>
                             <option value="Professor">Professor(a)</option>
                         </Select>
-                        <p style={{color:'red'}}>{errors?.funcao?.message}</p>
                     </FormControl>
 
                     <FormControl>
                         <FormLabel>Selecione o seguimento:</FormLabel>
                         <Select 
                         placeholder="Selecione uma opção"
-                       {... register('seguimento')}
                         >    
                             <option value="Todos"> Todos</option>
                             <option value="Educacao Infantil"> Educação Infantil</option>
                             <option value="Anos Inicias"> Anos Iniciais</option>
                             <option value="Anos Finais"> Anos Finais</option>
                         </Select>
-                         <p style={{color:'red'}}>{errors?.seguimento?.message}</p>
                     </FormControl>
                 </SimpleGrid>
 
@@ -173,7 +165,8 @@ interface FormularioData{
                         <Input
                             type="file"
                             accept="image/*"
-                            {...register('anexarImagem')}                          
+                            width="max-content"
+                            padding="5px"              
                         />
                                              
                         <Button
@@ -186,18 +179,17 @@ interface FormularioData{
                       <FormControl >
                             <FormLabel>Assunto:</FormLabel>
                             <Textarea 
-                            {... register('descreverMensagem')}
+                            width={{base:"100%", md:"50%", lg:"50%"}}
                             placeholder='Descreva sua mensagem...'
                          />       
-                         <p style={{color:'red'}}>{errors?.descreverMensagem?.message}</p>
                     </FormControl>
 
                 <Button
                     type="submit"
-                    bgColor='green.400'
+                    bg="blue.400"
                     color="White"
                     _hover={{
-                    color: "gray.300"
+                    bgColor:"green.400"
                     }}
                     alignSelf={"flex-start"}
                 >Públicar

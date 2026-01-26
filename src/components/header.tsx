@@ -2,7 +2,7 @@ import { Flex, Image } from '@chakra-ui/react';
 
 const Header = () => {
   return (
-    <Flex width="100%" flexDirection="column">
+    <Flex flexDirection="column">
       <Flex p={{ base: 2, md: 2, lg: 4 }}>
         <a href="https://www.netbil.com.br/portal/home" className="Logo-netbil">
           <Image src="./img/logo_netbil.png"

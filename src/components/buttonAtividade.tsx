@@ -7,16 +7,15 @@ export default function ButtonAtividade() {
         <Flex
             align="center"
             justify={{ base: "center", md: "flex-end" }}
-            mt={{ base: 6 }}
-            pr={{ base: 2 }}
+            mt={{ base:"10px" }}
+            pr={{ base: "center", md: "6%", lg:"6%" }}
             >
             <Button 
                 type="submit"
                 color="white"
                 bg="blue.400"
                 _hover={{
-                bg:"green.400"
-                
+                bg:"green.400",        
                 }}             
             >
                 <Icon as={IoMdAddCircleOutline} boxSize={5} mr={2} />
