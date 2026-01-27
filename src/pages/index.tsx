@@ -1,11 +1,10 @@
-import Head from "next/head"
-import Informacoes from "../components/informacoes"
-import { main } from "framer-motion/m"
+import Head from "next/head";
 import Header from "../components/header";
 import HeaderMenu from "@/components/headerMenu";
 import Title from "../components/title";
 import Footer from "../components/footer";
-import ButtonAtividade from "@/components/buttonAtividade";
+import ButtonInformacao from "@/components/buttonInformacao";
+
 
 export default function Home() {
   return (
@@ -17,15 +16,13 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
        </Head>
-
         <Header />
         <HeaderMenu />
         <hr />
         <Title />
-        <ButtonAtividade />
-        <Informacoes />
+        <ButtonInformacao />
         <Footer />
         </main>
     </>
-  )
+  );
 }

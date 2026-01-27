@@ -1,70 +1,96 @@
+'use client';
+
 import {
-    Box,
-    Flex,
-    FormControl,
-    FormLabel,
-    Heading,
-    Switch,
-    VStack,
-    Input,
-    SimpleGrid,
-    Textarea,
-    Button,
+Box,
+Flex,
+FormControl,
+FormLabel,
+Heading,
+Switch,
+VStack,
+Input,
+SimpleGrid,
+Textarea,
+Button,
 } from '@chakra-ui/react';
 import { Select } from "@chakra-ui/react";
-import { FormErrorMessage } from '@hookform/error-message';
+import { FormErrorMessage } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { useRef } from "react";
 import { z } from "zod";
 
  const registroSchema = z.object({
  titulo: z
  .string()
- .min(1 {message: "Informe o título."}),
+ .min(1, { message: "Informe o título."
+ }),
  realizacao: z
  .string()
- .min(1{message: "Informe a data de realização."}),
+ .min(1, {message: "Informe a data de realização."
+ }),
  publicarPara: z
  .string()
- .min(1{message: "Informe para quem será públicado."}),
+ .min(1, {message: "Informe para quem será públicado."
+ }),
  destacar: z
+ .boolean()
+ .optional(),
+ responsavel: z
  .string()
- .min(1),
- resonsavel: z
- .string()
- .min(1{message: "Informe o responsável."}),
+ .min(1,{message: "Informe o responsável."
+ }),
  funcao:z
  .string()
- .min(1{message: "Informe a função."}),
+ .min(1, {message: "Informe a função."
+ }),
  seguimento: z
  .string()
- .min(1{message: "Informe o seguimento."}),
+ .min(1, {message: "Informe o seguimento."
+ }),
  imagem: z
- .string()
- .min(1),
+ .any()
+ .refine(files => !files || files.length <= 3, {
+ message: "Você pode anexar no máximo 3 imagens"
+ })
+ .optional(),
  assunto: z
  .string()
- .min(1{message: "Descreva o assunto."}),
+ .min(1, {message: "Descreva o assunto."
+ }),
  })
 
  type UserRegister = z.infer<typeof registroSchema>;
 
+ const Informacoes = () => {
+
  const{
     handleSubmit,
     register,
-    setValue,
-    setError,
-    formState: { isSubmitting, errors },
- } = userForm <registroSchema>({ resolver: zodResolver(UserRegister)});
+    reset,
+    resetField,
+    formState: { errors },
+ } = useForm<UserRegister>({ 
+    resolver: zodResolver(registroSchema),
+ });
+     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
- const Informacoes = () => {
- 
-    return (
+     const onsubmit = (data: UserRegister) => {
+     console.log(data);
+     console.log(data.imagem?.[0]);
+     reset();
+
+     if (fileInputRef.current){
+        fileInputRef.current.value = "";
+     }
+}; 
+     return (
         <Flex 
            align= {{base:"center", md:"center", lg:"center"}}
            justify="center"
            p= "10px"
            color="#666"
-        >
+        >  
             <Box 
              w= "90%"
              p= "20px"
@@ -81,63 +107,81 @@ import { z } from "zod";
                 <Box 
                 marginTop={{base:"10%", md:"2%", lg:"2%"}}
                 >
-                    <form action="" autoComplete='off'>
+                    <form action="" autoComplete='off' onSubmit={(e) => handleSubmit(onsubmit)(e)}>
                     <VStack spacing={4} align="stretch">
                         <SimpleGrid 
                         columns={{base:1, md:4, lg:4}}
                         spacing={4}>
                         
-                        <FormControl >
+                        <FormControl isInvalid={!!errors.titulo}>
                             <FormLabel>Título:</FormLabel>
                             <Input 
                             type="text" 
                             placeholder="Digite o título"
-                            
+                             {...register("titulo")}
                             />
+                             <FormErrorMessage>
+                                {errors.titulo?.message}
+                            </FormErrorMessage>
                         </FormControl>
 
-                        <FormControl>
+                        <FormControl isInvalid={!!errors.realizacao}>
                             <FormLabel>Data da realização:</FormLabel>
                             <Input 
                             type="date"
+                            {...register("realizacao")}
                             />
+                            <FormErrorMessage>
+                                {errors.realizacao?.message}
+                            </FormErrorMessage>
                         </FormControl>  
                      
-                         <FormControl>
+                         <FormControl isInvalid={!!errors.publicarPara}>
                         <FormLabel>Publicar para:</FormLabel>
                         <Select
                          placeholder="Selecione uma opção"
+                         {...register("publicarPara")}
                         >
                             <option value="Todos">Todos</option>
                             <option value="Gestor">Gestores</option>
                             <option value="Professor">Professores</option>
                             <option value="Aluno">Alunos</option>
                         </Select>
+                         <FormErrorMessage>
+                         {errors.publicarPara?.message}
+                         </FormErrorMessage>
                         </FormControl>
                         
                         <FormControl display="flex" alignItems="center">
-                        <FormLabel >
+                        <FormLabel 
+                        >
                             Destacar no mural:
                         </FormLabel>
                         <Switch 
+                        {...register("destacar")}
                         />
                         </FormControl>
                         </SimpleGrid>
 
                         <SimpleGrid columns={{base:1, md:4, lg:4}}
                         spacing={4}>   
-                        <FormControl>
+                        <FormControl isInvalid={!!errors.responsavel}>
                         <FormLabel>Responsável pela realização:</FormLabel>
                         <Input 
                         type="text" 
                         placeholder="Digite o nome"
+                        {...register("responsavel")}
                         />
+                        <FormErrorMessage>
+                         {errors.responsavel?.message}
+                         </FormErrorMessage>
                         </FormControl>
 
-                    <FormControl>
+                    <FormControl isInvalid={!!errors.funcao}>
                         <FormLabel>Função:</FormLabel>
                         <Select
                         placeholder="Selecione uma opção"
+                        {...register("funcao")}
                         >
                             <option value="Todos">Todos</option>
                             <option value="Diretor">Diretor(a)</option>
@@ -145,43 +189,64 @@ import { z } from "zod";
                             <option value="Coordenador">Coordenador(a)</option>
                             <option value="Professor">Professor(a)</option>
                         </Select>
+                         <FormErrorMessage>
+                         {errors.funcao?.message}
+                         </FormErrorMessage>
                     </FormControl>
 
-                    <FormControl>
+                    <FormControl isInvalid={!!errors.seguimento}>
                         <FormLabel>Selecione o seguimento:</FormLabel>
                         <Select 
                         placeholder="Selecione uma opção"
+                        {...register("seguimento")}
                         >    
                             <option value="Todos"> Todos</option>
                             <option value="Educacao Infantil"> Educação Infantil</option>
                             <option value="Anos Inicias"> Anos Iniciais</option>
                             <option value="Anos Finais"> Anos Finais</option>
                         </Select>
+                         <FormErrorMessage>
+                         {errors.seguimento?.message}
+                         </FormErrorMessage>
                     </FormControl>
                 </SimpleGrid>
 
-                        <FormControl>
+                        <FormControl isInvalid={!!errors.imagem}>
                         <FormLabel>Anexar imagem:</FormLabel>
                         <Input
                             type="file"
                             accept="image/*"
+                            multiple
                             width="max-content"
-                            padding="5px"              
-                        />
-                                             
+                            padding="5px"   
+                            {...register("imagem")}    
+                        />   
+                         <FormErrorMessage>
+                         {errors.imagem?.message?.toString()}
+                         </FormErrorMessage>               
                         <Button
                         type="button"
+                        onClick={() => {
+                            resetField("imagem");
+                            if (fileInputRef.current) {
+                                fileInputRef.current.value = "";
+                            }
+                        }}
                          >
                         Excluir
                         </Button>
                         </FormControl>
 
-                      <FormControl >
+                      <FormControl isInvalid={!!errors.assunto}>
                             <FormLabel>Assunto:</FormLabel>
                             <Textarea 
                             width={{base:"100%", md:"50%", lg:"50%"}}
                             placeholder='Descreva sua mensagem...'
+                            {...register("assunto")}
                          />       
+                         <FormErrorMessage>
+                         {errors.assunto?.message}
+                         </FormErrorMessage>
                     </FormControl>
 
                 <Button
@@ -199,7 +264,7 @@ import { z } from "zod";
             </Box>
         </Box>
     </Flex >
-    )
- }
+  )
+}
 
 export default Informacoes;
