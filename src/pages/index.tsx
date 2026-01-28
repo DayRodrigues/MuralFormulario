@@ -4,7 +4,8 @@ import HeaderMenu from "@/components/headerMenu";
 import Title from "../components/title";
 import Footer from "../components/footer";
 import ButtonInformacao from "@/components/buttonInformacao";
-
+import { Divider } from "@chakra-ui/react";
+import Filtro from "@/components/filtro";
 
 export default function Home() {
   return (
@@ -18,9 +19,11 @@ export default function Home() {
        </Head>
         <Header />
         <HeaderMenu />
-        <hr />
+        <Divider />
         <Title />
         <ButtonInformacao />
+        <Divider bg="#666" margin={"20px" }/>
+        <Filtro />
         <Footer />
         </main>
     </>

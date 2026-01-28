@@ -20,6 +20,7 @@ import { useForm } from 'react-hook-form';
 import { useRef } from "react";
 import { z } from "zod";
 
+
  const registroSchema = z.object({
  titulo: z
  .string()
@@ -40,7 +41,7 @@ import { z } from "zod";
  .string()
  .min(1,{message: "Informe o responsável."
  }),
- funcao:z
+ cargo:z
  .string()
  .min(1, {message: "Informe a função."
  }),
@@ -177,11 +178,11 @@ import { z } from "zod";
                          </FormErrorMessage>
                         </FormControl>
 
-                    <FormControl isInvalid={!!errors.funcao}>
-                        <FormLabel>Função:</FormLabel>
+                    <FormControl isInvalid={!!errors.cargo}>
+                        <FormLabel>Cargo:</FormLabel>
                         <Select
                         placeholder="Selecione uma opção"
-                        {...register("funcao")}
+                        {...register("cargo")}
                         >
                             <option value="Todos">Todos</option>
                             <option value="Diretor">Diretor(a)</option>
@@ -190,20 +191,20 @@ import { z } from "zod";
                             <option value="Professor">Professor(a)</option>
                         </Select>
                          <FormErrorMessage>
-                         {errors.funcao?.message}
+                         {errors.cargo?.message}
                          </FormErrorMessage>
                     </FormControl>
 
                     <FormControl isInvalid={!!errors.seguimento}>
-                        <FormLabel>Selecione o seguimento:</FormLabel>
+                        <FormLabel>Selecione o segmento:</FormLabel>
                         <Select 
                         placeholder="Selecione uma opção"
                         {...register("seguimento")}
                         >    
                             <option value="Todos"> Todos</option>
-                            <option value="Educacao Infantil"> Educação Infantil</option>
-                            <option value="Anos Inicias"> Anos Iniciais</option>
-                            <option value="Anos Finais"> Anos Finais</option>
+                            <option value="Educacao Infantil"> Ed. Infantil</option>
+                            <option value="Anos Inicias"> EF Anos Iniciais</option>
+                            <option value="Anos Finais"> EF Anos Finais</option>
                         </Select>
                          <FormErrorMessage>
                          {errors.seguimento?.message}
