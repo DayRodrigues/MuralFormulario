@@ -7,6 +7,7 @@ import ButtonInformacao from "@/components/buttonInformacao";
 import { Divider } from "@chakra-ui/react";
 import Filtro from "@/components/filtro";
 
+
 export default function Home() {
   return (
     <>
@@ -22,7 +23,7 @@ export default function Home() {
         <Divider />
         <Title />
         <ButtonInformacao />
-        <Divider bg="#666" margin={"20px" }/>
+        <Divider margin={"20px"}/>
         <Filtro />
         <Footer />
         </main>

@@ -5,12 +5,10 @@ import {
     Icon, 
     useDisclosure, 
     Text,
-    
     FormControl,
     FormLabel,
     Select,
     SimpleGrid,
-    Flex
 } from "@chakra-ui/react";
 import { FaFilter } from "react-icons/fa";
 
@@ -20,10 +18,9 @@ import { FaFilter } from "react-icons/fa";
   return (
    <>    
       <Button 
-      mx={{base:"10px", md:"10px", lg:"80px"}}
+      mx={{base:"10px", md:"50px", lg:"80px"}}
       border= "1px solid"
       borderColor="gray.400"
-      borderRadius="md"
       width="50px"
       px="60px"
       bg="white"
@@ -34,17 +31,37 @@ import { FaFilter } from "react-icons/fa";
       onClick={onToggle}
       >
         <Icon as={FaFilter} boxSize="15px" mr={2} />
-        <Text> Filtrar </Text> 
+        <Text > Filtrar </Text> 
         </Button>
         <Collapse in={isOpen} animateOpacity>
        
-        <Box px={{base:"10px" , md:"10px" , lg:"80px" }}>
-        <SimpleGrid columns={{base:1, md:4, lg:4}}
-        spacing={2}>   
+        <Box 
+        px={{base:"15px", md:"50px", lg:"80px"}}
+        my={{base:"10px", md:"20px", lg: "20px"}}
+        width={{base:"100%", md:"70%", lg: "50%"}}
+        >
+        <SimpleGrid 
+        columns={{base:1, md:2, lg:2}}
+        spacing={6}
+        fontWeight="semibold" 
+        color="gray.600"
+        >   
         <FormControl>
-         <FormLabel> Selecione o cargo </FormLabel>
+         <FormLabel > Selecione o cargo: </FormLabel>
                 <Select
-                placeholder="Selecione uma opção"
+                border="none"
+                boxShadow="none"
+                borderBottom="2px solid"
+                _hover={{
+                  border:"none",
+                  borderBottom:"2px solid",
+                  borderColor:"gray.600"
+                }}
+                _focusVisible={{
+                border: "none",
+                borderBottom:"2px solid"
+                }}
+                 placeholder="Selecione uma opção"
                 >
                 <option value="Todos">Todos</option>
                 <option value="Diretor">Diretor(a)</option>
@@ -55,8 +72,20 @@ import { FaFilter } from "react-icons/fa";
          </FormControl>
 
          <FormControl>
-            <FormLabel> Selecione o seguimento </FormLabel>
+            <FormLabel> Selecione o seguimento: </FormLabel>
                 <Select
+                border="none"
+                boxShadow="none"
+                borderBottom="2px solid "
+                _hover={{
+                  border:"none",
+                  borderBottom:"2px solid",
+                  borderColor:"gray.600"
+                }}
+                _focusVisible={{
+                border: "none",
+                borderBottom:"2px solid"
+                }}
                 placeholder="Selecione uma opção"
                 >
                 <option value="Todos">Todos</option>
