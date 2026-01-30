@@ -57,7 +57,7 @@ import { z } from "zod";
  .optional(),
  assunto: z
  .string()
- .min(1, {message: "Descreva o assunto."
+ .min(1, {message: "Descreva a mensagem."
  }),
  })
 
@@ -140,9 +140,9 @@ import { z } from "zod";
                          <FormControl isInvalid={!!errors.publicarPara}>
                         <FormLabel>Publicar para:</FormLabel>
                         <Select
-                         placeholder="Selecione uma opção"
                          {...register("publicarPara")}
                         >
+                            <option value="" disabled selected hidden>Selecione uma opção</option>
                             <option value="Todos">Todos</option>
                             <option value="Gestor">Gestores</option>
                             <option value="Professor">Professores</option>
@@ -181,9 +181,10 @@ import { z } from "zod";
                     <FormControl isInvalid={!!errors.cargo}>
                         <FormLabel>Cargo:</FormLabel>
                         <Select
-                        placeholder="Selecione uma opção"
+                        id='cargo'
                         {...register("cargo")}
                         >
+                            <option value="" disabled selected hidden>Selecione uma opção</option>
                             <option value="Todos">Todos</option>
                             <option value="Diretor">Diretor(a)</option>
                             <option value="ViceDiretor">Vice-Diretor(a)</option>
@@ -198,9 +199,10 @@ import { z } from "zod";
                     <FormControl isInvalid={!!errors.seguimento}>
                         <FormLabel>Selecione o segmento:</FormLabel>
                         <Select 
-                        placeholder="Selecione uma opção"
+                        id='cargo'
                         {...register("seguimento")}
-                        >    
+                        >   
+                            <option value="" disabled selected hidden>Selecione uma opção</option>
                             <option value="Todos"> Todos</option>
                             <option value="Educacao Infantil"> Ed. Infantil</option>
                             <option value="Anos Inicias"> EF Anos Iniciais</option>

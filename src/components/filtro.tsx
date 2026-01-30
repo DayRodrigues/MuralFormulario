@@ -11,14 +11,74 @@ import {
     SimpleGrid,
 } from "@chakra-ui/react";
 import { FaFilter } from "react-icons/fa";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from "zod";
+
+  const filtroSchema = z.object ({
+    cargo: z
+    .enum([
+    "Diretor",
+    "ViceDiretor",
+    "Coordenador",
+    "Professor",
+    ])
+    .optional(),
+    seguimento: z
+    .enum([
+    "Educacao Infantil",
+    "Anos Iniciais",
+    "Anos Finais",
+    ])
+    .optional(),
+});
+
+  type userFiltro = z.infer<typeof filtroSchema>;
 
   function Filtro() {
   const { isOpen, onToggle } = useDisclosure()
 
+  const {
+    handleSubmit,
+    register,
+    formState: {},
+  } = useForm<userFiltro>({
+    resolver: zodResolver(filtroSchema),
+  });
+
+    const onSubmit = (data: userFiltro) => {
+    console.log(data);
+
+   const selecaoFiltro = {
+    cargo: {
+      Diretor: () => console.log("Cargo: Diretor"),
+      ViceDiretor: () => console.log("Cargo: Vice-Diretor"),
+      Coordenador: () => console.log("Cargo: Coordenador"),
+      Professor: () => console.log("Cargo: Professor"),
+    },
+    seguimento: {
+      "Educacao Infantil": () => console.log("Seguimento: Educação Infantil"),
+      "Anos Iniciais": () => console.log("Seguimento: Anos Iniciais"),
+      "Anos Finais": () => console.log("Seguimento: Anos Finais"),
+    },
+  };
+
+    if (data.cargo) {
+    selecaoFiltro.cargo[data.cargo]?.();
+  }
+
+  if (data.seguimento) {
+    selecaoFiltro.seguimento[data.seguimento]?.();
+  }
+};
+
   return (
-   <>    
+   <>   
+      <form onSubmit={handleSubmit (onSubmit)} >
       <Button 
-      mx={{base:"10px", md:"50px", lg:"80px"}}
+      type= "button"
+      onClick={onToggle}
+      mx={{base:"10px", md:"50px", lg:"6%"}}
       border= "1px solid"
       borderColor="gray.400"
       width="50px"
@@ -26,9 +86,8 @@ import { FaFilter } from "react-icons/fa";
       bg="white"
       color="black"
       _hover={{
-        bg:"gray.100" 
+      bg:"gray.100" 
       }}
-      onClick={onToggle}
       >
         <Icon as={FaFilter} boxSize="15px" mr={2} />
         <Text > Filtrar </Text> 
@@ -36,7 +95,7 @@ import { FaFilter } from "react-icons/fa";
         <Collapse in={isOpen} animateOpacity>
        
         <Box 
-        px={{base:"15px", md:"50px", lg:"80px"}}
+        px={{base:"5%", md:"50px", lg:"6%"}}
         my={{base:"10px", md:"20px", lg: "20px"}}
         width={{base:"100%", md:"70%", lg: "50%"}}
         >
@@ -49,6 +108,7 @@ import { FaFilter } from "react-icons/fa";
         <FormControl>
          <FormLabel > Selecione o cargo: </FormLabel>
                 <Select
+                {...register("cargo")}
                 border="none"
                 boxShadow="none"
                 borderBottom="2px solid"
@@ -61,9 +121,8 @@ import { FaFilter } from "react-icons/fa";
                 border: "none",
                 borderBottom:"2px solid"
                 }}
-                 placeholder="Selecione uma opção"
                 >
-                <option value="Todos">Todos</option>
+                <option value="" disabled selected hidden>Selecione uma opção</option>
                 <option value="Diretor">Diretor(a)</option>
                 <option value="ViceDiretor">Vice-Diretor(a)</option>
                 <option value="Coordenador">Coordenador(a)</option>
@@ -74,6 +133,7 @@ import { FaFilter } from "react-icons/fa";
          <FormControl>
             <FormLabel> Selecione o seguimento: </FormLabel>
                 <Select
+                {...register("seguimento")}
                 border="none"
                 boxShadow="none"
                 borderBottom="2px solid "
@@ -86,9 +146,8 @@ import { FaFilter } from "react-icons/fa";
                 border: "none",
                 borderBottom:"2px solid"
                 }}
-                placeholder="Selecione uma opção"
                 >
-                <option value="Todos">Todos</option>
+                <option value="" disabled selected hidden>Selecione uma opção</option>
                 <option value="Educacao Infantil">Ed. Infantil</option>
                 <option value="Anos Iniciais">EF Anos Iniciais</option>
                 <option value="Anos Finais">EF Anos Finais</option>
@@ -97,11 +156,9 @@ import { FaFilter } from "react-icons/fa";
          </SimpleGrid>
         </Box>
       </Collapse>
-    {/* </Flex> */}
+    </form> 
     </>
  );
 }
 
- export default Filtro; 
-
-      
+ export default Filtro;
