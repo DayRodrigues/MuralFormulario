@@ -11,6 +11,7 @@ import {
     SimpleGrid,
 } from "@chakra-ui/react";
 import { FaFilter } from "react-icons/fa";
+import { IoIosSearch } from "react-icons/io";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from "zod";
@@ -23,14 +24,14 @@ import { z } from "zod";
     "Coordenador",
     "Professor",
     ])
-    .optional(),
+    .refine(val => !!val, { message: "Selecione o cargo" }),
     seguimento: z
     .enum([
     "Educacao Infantil",
     "Anos Iniciais",
     "Anos Finais",
     ])
-    .optional(),
+    .refine(val => !!val, { message: "Selecione o cargo" }),
 });
 
   type userFiltro = z.infer<typeof filtroSchema>;
@@ -41,10 +42,16 @@ import { z } from "zod";
   const {
     handleSubmit,
     register,
+    reset,
     formState: {},
   } = useForm<userFiltro>({
     resolver: zodResolver(filtroSchema),
+    defaultValues: {
+    cargo:"Diretor",
+    seguimento:"Educacao Infantil",
+     }
   });
+
 
     const onSubmit = (data: userFiltro) => {
     console.log(data);
@@ -63,7 +70,7 @@ import { z } from "zod";
     },
   };
 
-    if (data.cargo) {
+  if (data.cargo)  {
     selecaoFiltro.cargo[data.cargo]?.();
   }
 
@@ -71,6 +78,14 @@ import { z } from "zod";
     selecaoFiltro.seguimento[data.seguimento]?.();
   }
 };
+
+    const limparFiltros = () => {
+      reset({
+        cargo: "Diretor",
+        seguimento: "Educacao Infantil",
+      });
+    };
+
 
   return (
    <>   
@@ -122,7 +137,7 @@ import { z } from "zod";
                 borderBottom:"2px solid"
                 }}
                 >
-                <option value="" disabled selected hidden>Selecione uma opção</option>
+                <option value="" disabled>Selecione uma opção</option>
                 <option value="Diretor">Diretor(a)</option>
                 <option value="ViceDiretor">Vice-Diretor(a)</option>
                 <option value="Coordenador">Coordenador(a)</option>
@@ -133,6 +148,7 @@ import { z } from "zod";
          <FormControl>
             <FormLabel> Selecione o seguimento: </FormLabel>
                 <Select
+                id="seguimento"
                 {...register("seguimento")}
                 border="none"
                 boxShadow="none"
@@ -147,7 +163,7 @@ import { z } from "zod";
                 borderBottom:"2px solid"
                 }}
                 >
-                <option value="" disabled selected hidden>Selecione uma opção</option>
+                <option value=""disabled>Selecione uma opção</option>
                 <option value="Educacao Infantil">Ed. Infantil</option>
                 <option value="Anos Iniciais">EF Anos Iniciais</option>
                 <option value="Anos Finais">EF Anos Finais</option>
@@ -156,6 +172,49 @@ import { z } from "zod";
          </SimpleGrid>
         </Box>
       </Collapse>
+          <Box
+      m="20px"
+      pr="5%"
+      display="flex"
+      justifyContent="flex-end"
+      >
+
+      <SimpleGrid
+      spacing={4}
+      columns={2}
+      >
+
+      <Button 
+      type= "button"
+      onClick={limparFiltros}
+      border= "none"
+      bg="white"
+      color="black"
+       _hover={{
+       bg: "white" 
+      }}
+       _active={{ 
+        bg: "white" 
+      }}
+      >
+        <Icon as={FaFilter} boxSize="15px" mr={2} />
+        <Text fontWeight="normal" > Limpar filtros </Text> 
+        </Button>
+
+      <Button 
+      type= "submit"
+      color="black"
+      bg= "gray.400" 
+       _hover={{
+       bg: "gray.800" 
+      }}
+
+      >
+      <Icon as={IoIosSearch} boxSize="23px" mr={2} />
+      <Text fontWeight="normal"> Pesquisar </Text> 
+      </Button>
+      </SimpleGrid>
+      </Box>
     </form> 
     </>
  );
