@@ -17,8 +17,9 @@ import { Select } from "@chakra-ui/react";
 import { FormErrorMessage } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { z } from "zod";
+import { useFilterContext } from "./FilterContext";
 
 
  const registroSchema = z.object({
@@ -70,11 +71,32 @@ import { z } from "zod";
     register,
     reset,
     resetField,
+    watch,
     formState: { errors },
  } = useForm<UserRegister>({ 
     resolver: zodResolver(registroSchema),
  });
      const fileInputRef = useRef<HTMLInputElement | null>(null);
+     const { registerClearCallback } = useFilterContext();
+
+     const titulo = watch("titulo");
+     const realizacao = watch("realizacao");
+     const publicarPara = watch("publicarPara");
+     const responsavel = watch("responsavel");
+     const cargo = watch("cargo");
+     const seguimento = watch("seguimento");
+     const assunto = watch("assunto");
+
+     useEffect(() => {
+       registerClearCallback("informacoes", () => {
+         reset();
+         if (fileInputRef.current) {
+           fileInputRef.current.value = "";
+         }
+       }, () => {
+         return !!(titulo || realizacao || publicarPara || responsavel || cargo || seguimento || assunto);
+       });
+     }, [reset, registerClearCallback, titulo, realizacao, publicarPara, responsavel, cargo, seguimento, assunto]);
 
      const onsubmit = (data: UserRegister) => {
      console.log(data);

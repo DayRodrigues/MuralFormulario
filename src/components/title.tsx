@@ -13,7 +13,7 @@ const Title = () => {
             <Text className="Title"
                 fontSize={{ base: "18", lg: "28" }}
                 color="#666"
-                font-weight="medium"
+                fontWeight="medium"
             >
                 Mural escolar
             </Text>

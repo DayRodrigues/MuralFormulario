@@ -15,8 +15,10 @@ import { IoIosSearch } from "react-icons/io";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from "zod";
+import { useFilterContext } from "./FilterContext";
+import { useEffect } from "react";
 
-  const filtroSchema = z.object ({
+  export const filtroSchema = z.object ({
     cargo: z
     .enum([
     "Diretor",
@@ -31,7 +33,7 @@ import { z } from "zod";
     "Anos Iniciais",
     "Anos Finais",
     ])
-    .refine(val => !!val, { message: "Selecione o cargo" }),
+    .refine(val => !!val, { message: "Selecione o seguimento" }),
 });
 
   type userFiltro = z.infer<typeof filtroSchema>;
@@ -43,15 +45,23 @@ import { z } from "zod";
     handleSubmit,
     register,
     reset,
+    watch,
     formState: {},
   } = useForm<userFiltro>({
     resolver: zodResolver(filtroSchema),
-    defaultValues: {
-    cargo:"Diretor",
-    seguimento:"Educacao Infantil",
-     }
   });
 
+  const { registerClearCallback } = useFilterContext();
+  const cargoValue = watch("cargo");
+  const seguimentoValue = watch("seguimento");
+
+  useEffect(() => {
+    registerClearCallback("filtro", () => {
+      reset();
+    }, () => {
+      return !!cargoValue || !!seguimentoValue;
+    });
+  }, [reset, registerClearCallback, cargoValue, seguimentoValue]);
 
     const onSubmit = (data: userFiltro) => {
     console.log(data);
@@ -78,14 +88,6 @@ import { z } from "zod";
     selecaoFiltro.seguimento[data.seguimento]?.();
   }
 };
-
-    const limparFiltros = () => {
-      reset({
-        cargo: "Diretor",
-        seguimento: "Educacao Infantil",
-      });
-    };
-
 
   return (
    <>   
@@ -124,6 +126,7 @@ import { z } from "zod";
          <FormLabel > Selecione o cargo: </FormLabel>
                 <Select
                 {...register("cargo")}
+                defaultValue=""
                 border="none"
                 boxShadow="none"
                 borderBottom="2px solid"
@@ -148,8 +151,8 @@ import { z } from "zod";
          <FormControl>
             <FormLabel> Selecione o seguimento: </FormLabel>
                 <Select
-                id="seguimento"
                 {...register("seguimento")}
+                defaultValue=""
                 border="none"
                 boxShadow="none"
                 borderBottom="2px solid "
@@ -178,29 +181,6 @@ import { z } from "zod";
       display="flex"
       justifyContent="flex-end"
       >
-
-      <SimpleGrid
-      spacing={4}
-      columns={2}
-      >
-
-      <Button 
-      type= "button"
-      onClick={limparFiltros}
-      border= "none"
-      bg="white"
-      color="black"
-       _hover={{
-       bg: "white" 
-      }}
-       _active={{ 
-        bg: "white" 
-      }}
-      >
-        <Icon as={FaFilter} boxSize="15px" mr={2} />
-        <Text fontWeight="normal" > Limpar filtros </Text> 
-        </Button>
-
       <Button 
       type= "submit"
       color="black"
@@ -208,12 +188,10 @@ import { z } from "zod";
        _hover={{
        bg: "gray.800" 
       }}
-
       >
       <Icon as={IoIosSearch} boxSize="23px" mr={2} />
       <Text fontWeight="normal"> Pesquisar </Text> 
       </Button>
-      </SimpleGrid>
       </Box>
     </form> 
     </>
