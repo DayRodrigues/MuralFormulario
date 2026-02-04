@@ -12,7 +12,9 @@ Input,
 SimpleGrid,
 Textarea,
 Button,
+Icon,
 } from '@chakra-ui/react';
+
 import { Select } from "@chakra-ui/react";
 import { FormErrorMessage } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,6 +22,8 @@ import { useForm } from 'react-hook-form';
 import { useRef, useEffect } from "react";
 import { z } from "zod";
 import { useFilterContext } from "./FilterContext";
+import { CiImageOn } from "react-icons/ci";
+
 
 
  const registroSchema = z.object({
@@ -113,6 +117,7 @@ import { useFilterContext } from "./FilterContext";
            justify="center"
            p= "10px"
            color="#666"
+           w="100%"
         >  
             <Box 
              w= "90%"
@@ -133,7 +138,7 @@ import { useFilterContext } from "./FilterContext";
                     <form action="" autoComplete='off' onSubmit={(e) => handleSubmit(onsubmit)(e)}>
                     <VStack spacing={4} align="stretch">
                         <SimpleGrid 
-                        columns={{base:1, md:4, lg:4}}
+                        columns={{base:1, md:3, lg:3}}
                         spacing={4}>
                         
                         <FormControl isInvalid={!!errors.titulo}>
@@ -174,19 +179,9 @@ import { useFilterContext } from "./FilterContext";
                          {errors.publicarPara?.message}
                          </FormErrorMessage>
                         </FormControl>
-                        
-                        <FormControl display="flex" alignItems="center">
-                        <FormLabel 
-                        >
-                            Destacar no mural:
-                        </FormLabel>
-                        <Switch 
-                        {...register("destacar")}
-                        />
-                        </FormControl>
                         </SimpleGrid>
 
-                        <SimpleGrid columns={{base:1, md:4, lg:4}}
+                        <SimpleGrid columns={{base:1, md:3, lg:3}}
                         spacing={4}>   
                         <FormControl isInvalid={!!errors.responsavel}>
                         <FormLabel>Responsável pela realização:</FormLabel>
@@ -235,20 +230,33 @@ import { useFilterContext } from "./FilterContext";
                          </FormErrorMessage>
                     </FormControl>
                 </SimpleGrid>
-
-                        <FormControl isInvalid={!!errors.imagem}>
-                        <FormLabel>Anexar imagem:</FormLabel>
-                        <Input
+                      
+                        <FormControl display="flex" alignItems="center">
+                        <FormLabel 
+                        >
+                            Destacar no mural:
+                        </FormLabel>
+                        <Switch 
+                        {...register("destacar")}
+                        />
+                        </FormControl>
+                        
+                        <FormControl isInvalid={!!errors.imagem} >
+                        <FormLabel display="flex" alignItems="center" gap={2}>
+                            Anexar imagem: <Icon as={CiImageOn} boxSize={7} mr={4} />
+                            </FormLabel>
+                        
+                           <Flex
+                           align="center" gap={2}
+                           >     
+                           <Input
                             type="file"
                             accept="image/*"
-                            multiple
-                            width="max-content"
-                            padding="5px"   
-                            {...register("imagem")}    
-                        />   
-                         <FormErrorMessage>
-                         {errors.imagem?.message?.toString()}
-                         </FormErrorMessage>               
+                            multiple 
+                            p="5px"
+                            flex="1"
+                            {...register("imagem")}                  
+                        /> 
                         <Button
                         type="button"
                         onClick={() => {
@@ -259,13 +267,16 @@ import { useFilterContext } from "./FilterContext";
                         }}
                          >
                         Excluir
-                        </Button>
-                        </FormControl>
-
+                        </Button> 
+                       </Flex> 
+                        <FormErrorMessage>
+                         {errors.imagem?.message?.toString()}
+                         </FormErrorMessage>
+                        </FormControl>       
+                        
                       <FormControl isInvalid={!!errors.assunto}>
                             <FormLabel>Assunto:</FormLabel>
                             <Textarea 
-                            width={{base:"100%", md:"50%", lg:"50%"}}
                             placeholder='Descreva sua mensagem...'
                             {...register("assunto")}
                          />       
@@ -277,11 +288,12 @@ import { useFilterContext } from "./FilterContext";
                 <Button
                     type="submit"
                     bg="blue.400"
+
                     color="White"
                     _hover={{
                     bgColor:"green.400"
                     }}
-                    alignSelf={"flex-start"}
+                    alignSelf={"flex-end"}
                 >Públicar
                 </Button>
                 </VStack>

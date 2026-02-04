@@ -3,10 +3,9 @@ import Header from "../components/header";
 import HeaderMenu from "@/components/headerMenu";
 import Title from "../components/title";
 import Footer from "../components/footer";
-import { Divider } from "@chakra-ui/react";
+import { Divider, Flex, Spacer } from "@chakra-ui/react";
 import Filtro from "@/components/filtro";
 import ButtonAtividade from "@/components/buttonAtividade";
-
 
 export default function Home() {
   return (
@@ -19,14 +18,21 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
        </Head>
+        <Flex
+        flexDirection={"column"}
+        h={"100%"}
+        minH={"100vh"}
+        >
         <Header />
         <HeaderMenu />
         <Divider />
         <Title />
-        <ButtonAtividade />
-        <Divider margin={"20px"}/>
         <Filtro />
+        <Divider margin={"20px"}/>
+        <ButtonAtividade />
+        <Spacer />
         <Footer />
+        </Flex>
         </main>
        
     </>

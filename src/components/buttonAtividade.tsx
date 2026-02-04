@@ -9,12 +9,11 @@ import {
 } from "@chakra-ui/react";
 import Informacoes from "./informacoes";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import { FaFilter } from "react-icons/fa";
-import { useFilterContext } from "./FilterContext";
+
 
     function ButtonAtividade () {
     const { isOpen, onToggle } = useDisclosure();
-    const { onClearFilters } = useFilterContext();
+    
 
     return (
     <>
@@ -22,7 +21,7 @@ import { useFilterContext } from "./FilterContext";
       align="center"
        justify={{ base: "center", md: "flex-end" }} 
        mt={{ base:"10px" }} 
-       pr={{ base: "center", md: "6%", lg:"6%" }}
+       pr={{ base: "center" }}
       >
       <SimpleGrid
       columns={2}
@@ -40,24 +39,7 @@ import { useFilterContext } from "./FilterContext";
         <Icon as={IoMdAddCircleOutline} boxSize={5} mr={2} />
         <Text > Novo registro </Text> 
         </Button>
-        
-        
-      <Button 
-      type= "button"
-      onClick={onClearFilters}
-      border= "none"
-      bg="white"
-      color="black"
-       _hover={{
-       bg: "white" 
-      }}
-       _active={{ 
-        bg: "white" 
-      }}
-      >
-        <Icon as={FaFilter} boxSize="15px" mr={2} />
-        <Text fontWeight="normal" > Limpar filtros </Text> 
-        </Button>
+      
         </SimpleGrid>
         </Flex>
         <Collapse in={isOpen} animateOpacity>

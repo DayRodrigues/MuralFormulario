@@ -9,6 +9,7 @@ import {
     FormLabel,
     Select,
     SimpleGrid,
+    Flex,
 } from "@chakra-ui/react";
 import { FaFilter } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
@@ -40,6 +41,7 @@ import { useEffect } from "react";
 
   function Filtro() {
   const { isOpen, onToggle } = useDisclosure()
+  const { onClearFilters } = useFilterContext();
 
   const {
     handleSubmit,
@@ -90,16 +92,16 @@ import { useEffect } from "react";
 };
 
   return (
-   <>   
-      <form onSubmit={handleSubmit (onSubmit)} >
+   <Flex
+   w="100%"
+   >   
+      <form onSubmit={handleSubmit (onSubmit)} style={{width:"100%"}}>
       <Button 
       type= "button"
       onClick={onToggle}
       mx={{base:"10px", md:"50px", lg:"6%"}}
       border= "1px solid"
       borderColor="gray.400"
-      width="50px"
-      px="60px"
       bg="white"
       color="black"
       _hover={{
@@ -174,27 +176,46 @@ import { useEffect } from "react";
          </FormControl>
          </SimpleGrid>
         </Box>
-      </Collapse>
-          <Box
+      
+      <Box
       m="20px"
-      pr="5%"
+      pr="10%"
       display="flex"
       justifyContent="flex-end"
       >
+        <Button 
+      type= "button"
+      onClick={onClearFilters}
+      border= "none"
+      bg="white"
+      color="black"
+       _hover={{
+       bg: "white" 
+      }}
+       _active={{ 
+        bg: "white" 
+      }}
+      >
+        <Icon as={FaFilter} boxSize="15px" mr={2} />
+        <Text fontWeight="normal" > Limpar filtros </Text> 
+        </Button>
+
       <Button 
       type= "submit"
       color="black"
-      bg= "gray.400" 
+      bg= "gray.200" 
        _hover={{
-       bg: "gray.800" 
+       bg: "gray.400" 
       }}
       >
       <Icon as={IoIosSearch} boxSize="23px" mr={2} />
       <Text fontWeight="normal"> Pesquisar </Text> 
       </Button>
       </Box>
+      </Collapse>
     </form> 
-    </>
+    </Flex>
+    
  );
 }
 
