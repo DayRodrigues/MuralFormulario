@@ -5,7 +5,6 @@ import {
     Icon, 
     Text,
     useDisclosure,
-    SimpleGrid,
 } from "@chakra-ui/react";
 import Informacoes from "./informacoes";
 import { IoMdAddCircleOutline } from "react-icons/io";
@@ -18,15 +17,12 @@ import { IoMdAddCircleOutline } from "react-icons/io";
     return (
     <>
     <Flex
-      align="center"
-       justify={{ base: "center", md: "flex-end" }} 
-       mt={{ base:"10px" }} 
-       pr={{ base: "center" }}
+       px={{base:"5%", md:"50px", lg:"6%"}}
+       justify={{md: "flex-end" }} 
+       mt={{ base:"5px" }} 
+       pr={{ base: "center", md:"100px"}}
       >
-      <SimpleGrid
-      columns={2}
-      spacing={3}
-      >
+
       <Button 
       type= "button"
       onClick={onToggle}
@@ -39,8 +35,6 @@ import { IoMdAddCircleOutline } from "react-icons/io";
         <Icon as={IoMdAddCircleOutline} boxSize={5} mr={2} />
         <Text > Novo registro </Text> 
         </Button>
-      
-        </SimpleGrid>
         </Flex>
         <Collapse in={isOpen} animateOpacity>
         <Informacoes />

@@ -7,6 +7,7 @@ import { Divider, Flex, Spacer } from "@chakra-ui/react";
 import Filtro from "@/components/filtro";
 import ButtonAtividade from "@/components/buttonAtividade";
 
+
 export default function Home() {
   return (
     <>

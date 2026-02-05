@@ -1,38 +1,22 @@
 import {
-    Button,
-     useToast,
-     Wrap,
-     WrapItem
-
- } from "@chakra-ui/react"
+  useToast,
+} from "@chakra-ui/react"
 
 
-function alert() {
-
+export function useAlert() {
   const toast = useToast()
-  const positions = [
-    'bottom-right',
-  ]
-
-  return (
-    <Wrap>
-      {positions.map((position, i) => (
-        <WrapItem key={i}>
-          <Button
-            onClick={() =>
-              toast({
-                title: `${position} toast`,
-                position: position,
-                isClosable: true,
-              })
-            }
-          >
-            Show {position} toast
-          </Button>
-        </WrapItem>
-      ))}
-    </Wrap>
-  )
+  
+  const success = (message: string = "Sucesso!") => {
+    toast({
+      title: message,
+      description: "Publicação realizada com sucesso!",
+      position: "bottom-right",
+      isClosable: true,
+      status: "success",
+      duration: 5000,
+    })
 }
+ 
+  return { success }
 
-export default alert;
+}

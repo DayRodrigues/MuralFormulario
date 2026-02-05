@@ -94,6 +94,7 @@ import { useEffect } from "react";
   return (
    <Flex
    w="100%"
+   mt="20px"
    >   
       <form onSubmit={handleSubmit (onSubmit)} style={{width:"100%"}}>
       <Button 
@@ -116,7 +117,6 @@ import { useEffect } from "react";
         <Box 
         px={{base:"5%", md:"50px", lg:"6%"}}
         my={{base:"10px", md:"20px", lg: "20px"}}
-        width={{base:"100%", md:"70%", lg: "50%"}}
         >
         <SimpleGrid 
         columns={{base:1, md:2, lg:2}}
@@ -178,12 +178,23 @@ import { useEffect } from "react";
         </Box>
       
       <Box
-      m="20px"
-      pr="10%"
+      m="10px"
+      pr="100px"
       display="flex"
       justifyContent="flex-end"
+      > 
+      <Button 
+      type= "submit"
+      color="black"
+      bg= "gray.200" 
+       _hover={{
+       bg: "gray.400" 
+      }}
       >
-        <Button 
+      <Icon as={IoIosSearch} boxSize="23px" mr={2} />
+      <Text fontWeight="normal"> Pesquisar </Text> 
+      </Button>
+      <Button 
       type= "button"
       onClick={onClearFilters}
       border= "none"
@@ -199,18 +210,6 @@ import { useEffect } from "react";
         <Icon as={FaFilter} boxSize="15px" mr={2} />
         <Text fontWeight="normal" > Limpar filtros </Text> 
         </Button>
-
-      <Button 
-      type= "submit"
-      color="black"
-      bg= "gray.200" 
-       _hover={{
-       bg: "gray.400" 
-      }}
-      >
-      <Icon as={IoIosSearch} boxSize="23px" mr={2} />
-      <Text fontWeight="normal"> Pesquisar </Text> 
-      </Button>
       </Box>
       </Collapse>
     </form> 

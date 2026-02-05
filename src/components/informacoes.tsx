@@ -13,8 +13,8 @@ SimpleGrid,
 Textarea,
 Button,
 Icon,
+Tooltip,
 } from '@chakra-ui/react';
-
 import { Select } from "@chakra-ui/react";
 import { FormErrorMessage } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,8 +23,7 @@ import { useRef, useEffect } from "react";
 import { z } from "zod";
 import { useFilterContext } from "./FilterContext";
 import { CiImageOn } from "react-icons/ci";
-
-
+import { useAlert } from "./alert"
 
  const registroSchema = z.object({
  titulo: z
@@ -102,10 +101,14 @@ import { CiImageOn } from "react-icons/ci";
        });
      }, [reset, registerClearCallback, titulo, realizacao, publicarPara, responsavel, cargo, seguimento, assunto]);
 
+     const { success } = useAlert ()
+
      const onsubmit = (data: UserRegister) => {
      console.log(data);
      console.log(data.imagem?.[0]);
      reset();
+
+     success("Atividade públicada!")
 
      if (fileInputRef.current){
         fileInputRef.current.value = "";
@@ -243,11 +246,20 @@ import { CiImageOn } from "react-icons/ci";
                         
                         <FormControl isInvalid={!!errors.imagem} >
                         <FormLabel display="flex" alignItems="center" gap={2}>
-                            Anexar imagem: <Icon as={CiImageOn} boxSize={7} mr={4} />
-                            </FormLabel>
-                        
-                           <Flex
-                           align="center" gap={2}
+                            Anexar imagem: 
+                          <Tooltip 
+                          label= "Máx. 3 imagens" 
+                          fontSize="md"
+                          borderRadius="md"
+                          bg="gray.900"
+                          >
+                          <Icon as={CiImageOn} boxSize={7} mr={4} />
+                          </Tooltip>
+                          </FormLabel>
+                          <Flex
+                            direction={{ base: "column", md: "row" }}
+                            align={{ base: "stretch", md: "center" }}
+                            gap={2}
                            >     
                            <Input
                             type="file"
@@ -255,10 +267,15 @@ import { CiImageOn } from "react-icons/ci";
                             multiple 
                             p="5px"
                             flex="1"
-                            {...register("imagem")}                  
-                        /> 
+                            {...register("imagem")}  
+                            />                
+                         
                         <Button
                         type="button"
+                        bg="gray.300"
+                        _hover= {{
+                            bg:"gray.400"
+                        }}
                         onClick={() => {
                             resetField("imagem");
                             if (fileInputRef.current) {
@@ -272,7 +289,7 @@ import { CiImageOn } from "react-icons/ci";
                         <FormErrorMessage>
                          {errors.imagem?.message?.toString()}
                          </FormErrorMessage>
-                        </FormControl>       
+                        </FormControl>      
                         
                       <FormControl isInvalid={!!errors.assunto}>
                             <FormLabel>Assunto:</FormLabel>
