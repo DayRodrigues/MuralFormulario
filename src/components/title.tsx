@@ -5,11 +5,10 @@ const Title = () => {
     return (
 
         <Flex
-            px="10px"
+            px={{ base: "8px", md: "100px" }}
             margin="8px"
             align="center"
         >
-
             <Text className="Title"
                 fontSize={{ base: "18", lg: "28" }}
                 color="#666"

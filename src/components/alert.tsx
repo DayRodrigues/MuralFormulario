@@ -5,7 +5,7 @@ import {
 
 export function useAlert() {
   const toast = useToast()
-  
+
   const success = (message: string = "Sucesso!") => {
     toast({
       title: message,
@@ -15,8 +15,8 @@ export function useAlert() {
       status: "success",
       duration: 5000,
     })
-}
- 
+  }
+
   return { success }
 
 }

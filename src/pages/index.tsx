@@ -29,7 +29,7 @@ export default function Home() {
         <Divider />
         <Title />
         <Filtro />
-        <Divider margin={"20px"}/>
+        <Divider margin={"10px"}/>
         <ButtonAtividade />
         <Spacer />
         <Footer />

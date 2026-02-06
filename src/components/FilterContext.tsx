@@ -1,9 +1,10 @@
 import React, {
-   createContext, 
-   useContext, 
-   ReactNode, 
-   useState } 
-   from 'react';
+  createContext,
+  useContext,
+  ReactNode,
+  useState
+}
+  from 'react';
 
 interface ClearCallback {
   name: string;
