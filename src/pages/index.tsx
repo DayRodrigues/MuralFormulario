@@ -6,6 +6,7 @@ import Footer from "../components/footer";
 import { Divider, Flex, Spacer } from "@chakra-ui/react";
 import Filtro from "@/components/filtro";
 import ButtonAtividade from "@/components/buttonAtividade";
+import CardPublication from "@/components/CardPublication";
 
 
 export default function Home() {
@@ -31,6 +32,7 @@ export default function Home() {
         <Filtro />
         <Divider margin={"10px"}/>
         <ButtonAtividade />
+        <CardPublication />
         <Spacer />
         <Footer />
         </Flex>

@@ -12,18 +12,16 @@ import {
     SimpleGrid,
     Textarea,
     Button,
-    Icon,
-    Tooltip,
 } from '@chakra-ui/react';
 import { Select } from "@chakra-ui/react";
 import { FormErrorMessage } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { z } from "zod";
 import { useFilterContext } from "./FilterContext";
-import { CiImageOn } from "react-icons/ci";
 import { useAlert } from "./alert"
+import ImageUpload from './imageUploud';
 
 const registroSchema = z.object({
     titulo: z
@@ -82,14 +80,21 @@ const Informacoes = () => {
         reset,
         resetField,
         watch,
+        setError,
+        clearErrors,
+        setValue,
         formState: { errors },
     } = useForm<UserRegister>({
         resolver: zodResolver(registroSchema),
+        mode: "onChange",
     });
-    
+
     const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+    const [previewImages, setPreviewImages] = useState<string[]>([]);
+
     const { registerClearCallback } = useFilterContext();
- 
+
     const titulo = watch("titulo");
     const realizacao = watch("realizacao");
     const publicarPara = watch("publicarPara");
@@ -113,8 +118,9 @@ const Informacoes = () => {
 
     const onsubmit = (data: UserRegister) => {
         console.log(data);
-        console.log(data.imagem?.[0]);
+        console.log(data.imagem);
         reset();
+        setPreviewImages([]);
 
         success("Atividade públicada!")
 
@@ -146,7 +152,7 @@ const Informacoes = () => {
                 <Box
                     marginTop={{ base: "10%", md: "2%", lg: "2%" }}
                 >
-                    <form action="" autoComplete='off' onSubmit={(e) => handleSubmit(onsubmit)(e)}>
+                    <form action="" autoComplete='off' onSubmit={handleSubmit(onsubmit)}>
                         <VStack spacing={4} align="stretch">
                             <SimpleGrid
                                 columns={{ base: 1, md: 3, lg: 3 }}
@@ -252,52 +258,54 @@ const Informacoes = () => {
                                 />
                             </FormControl>
 
-                            <FormControl isInvalid={!!errors.imagem} >
-                                <FormLabel display="flex" alignItems="center" gap={2}>
-                                    Anexar imagem:
-                                    <Tooltip
-                                        label="Máx. 3 imagens"
-                                        fontSize="md"
-                                        borderRadius="md"
-                                        bg="red.600"
-                                    >
-                                        <Icon as={CiImageOn} boxSize={7} mr={4} />
-                                    </Tooltip>
-                                </FormLabel>
-                                <Flex
-                                    direction={{ base: "column", md: "row" }}
-                                    align={{ base: "stretch", md: "center" }}
-                                    gap={2}
-                                >
-                                    <Input
-                                        type="file"
-                                        accept="image/*"
-                                        multiple
-                                        p="5px"
-                                        flex="1"
-                                        {...register("imagem")}
-                                    />
+                            <ImageUpload
+                                previewImages={previewImages}
+                                error={errors.imagem?.message?.toString()}
 
-                                    <Button
-                                        type="button"
-                                        bg="gray.300"
-                                        _hover={{
-                                            bg: "gray.400"
-                                        }}
-                                        onClick={() => {
-                                            resetField("imagem");
-                                            if (fileInputRef.current) {
-                                                fileInputRef.current.value = "";
-                                            }
-                                        }}
-                                    >
-                                        Excluir
-                                    </Button>
-                                </Flex>
-                                <FormErrorMessage>
-                                    {errors.imagem?.message?.toString()}
-                                </FormErrorMessage>
-                            </FormControl>
+                               onChange={(files) => {
+                                   if (!files) return;
+
+                                   if (files.length > 3) {
+                                       setError("imagem", {
+                                           type: "manual",
+                                           message: "Você pode anexar no máximo 3 imagens",
+                                       });
+                                       return;
+                                   }
+
+                                   clearErrors("imagem");
+
+                                   const previews = Array.from(files).map(file =>
+                                       URL.createObjectURL(file)
+                                   );
+                                   setPreviewImages(previews);
+
+                                   setValue("imagem", files);
+                               }}
+
+                               onRemove={(index) => {
+                                setPreviewImages((prev) => {
+                                    const updated = prev.filter((_,i) => i !== index);
+
+                                    if (updated.length <=3) {
+                                        clearErrors("imagem");
+                                    }
+                                    if(updated.length === 0){
+                                        resetField("imagem");
+                                    }
+                                    return updated;
+                                });  
+                                const currentFiles = watch("imagem") || [];
+                                const updateFiles = Array.from(currentFiles).filter((_, i) => i !== index);
+                                setValue("imagem", updateFiles.length> 0 ? updateFiles : undefined);
+                               }}
+
+                                onClear={() => {
+                                    resetField("imagem");
+                                    clearErrors("imagem");
+                                    setPreviewImages([]);
+                                }}
+                            />
 
                             <FormControl isInvalid={!!errors.assunto}>
                                 <FormLabel>Assunto:</FormLabel>
