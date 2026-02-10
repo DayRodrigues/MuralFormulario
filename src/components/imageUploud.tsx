@@ -10,20 +10,25 @@ import {
     FormErrorMessage,
 } from "@chakra-ui/react";
 import { CiImageOn } from "react-icons/ci";
+import React from 'react';
 
+// Tipos das Props do componente upload
 type ImageUploadProps = {
     previewImages: string[];
     onChange: (files: FileList | null) => void;
     onClear: () => void;
     onRemove: (index: number) => void;
+    fileInputRef?: React.RefObject<HTMLInputElement | null>;
     error?: string;
 };
 
+// Referência para o componente de upload das imagem
 const ImageUpload = ({
     previewImages,
     onChange,
     onClear,
     onRemove,
+    fileInputRef,
     error,
 }: ImageUploadProps) => {
 
@@ -46,6 +51,7 @@ const ImageUpload = ({
                 direction={{ base: "column" }}
                 gap={2}
             >
+                {/* Preview das imagens  */}
                 {previewImages.length > 0 && (
                     <Flex mt={3} wrap="wrap" gap="15px">
                         {previewImages.map((src, index) => (
@@ -78,17 +84,20 @@ const ImageUpload = ({
                             </Button>
                            </Flex>
                         ))}
-                        </Flex>
-                    
+                        </Flex>  
                 )}
+
                 <Flex gap={2}>
-                <Input
+                 <Input
                     type="file"
                     accept="image/*"
                     multiple
                     p="5px"
                     flex="1"
-                         onChange={(e) => onChange(e.target.files)}
+                    // Referência para limpar o input
+                        ref={fileInputRef} 
+                    // Chama a função nas props, enviando as imagens selecionadas 
+                        onChange={(e) => onChange(e.target.files)}
                     />
 
                 <Button

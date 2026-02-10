@@ -23,6 +23,7 @@ import { useFilterContext } from "./FilterContext";
 import { useAlert } from "./alert"
 import ImageUpload from './imageUploud';
 
+//Esquema de validação com Zod
 const registroSchema = z.object({
     titulo: z
         .string()
@@ -74,8 +75,8 @@ type UserRegister = z.infer<typeof registroSchema>;
 
 const Informacoes = () => {
 
-    const {
-        handleSubmit,
+    const {     //Funções RHF para controle do formulário
+        handleSubmit, 
         register,
         reset,
         resetField,
@@ -86,12 +87,11 @@ const Informacoes = () => {
         formState: { errors },
     } = useForm<UserRegister>({
         resolver: zodResolver(registroSchema),
-        mode: "onChange",
+        mode: "onChange",  //Validação em tempo real
     });
 
-    const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-    const [previewImages, setPreviewImages] = useState<string[]>([]);
+    const fileInputRef = useRef<HTMLInputElement | null>(null); //Referência para o input de arquivos   
+    const [previewImages, setPreviewImages] = useState<string[]>([]); //Estado para guardas as URL temporárias das 
 
     const { registerClearCallback } = useFilterContext();
 
@@ -261,6 +261,7 @@ const Informacoes = () => {
                             <ImageUpload
                                 previewImages={previewImages}
                                 error={errors.imagem?.message?.toString()}
+                                fileInputRef={fileInputRef}
 
                                onChange={(files) => {
                                    if (!files) return;
@@ -295,15 +296,34 @@ const Informacoes = () => {
                                     }
                                     return updated;
                                 });  
-                                const currentFiles = watch("imagem") || [];
-                                const updateFiles = Array.from(currentFiles).filter((_, i) => i !== index);
-                                setValue("imagem", updateFiles.length> 0 ? updateFiles : undefined);
+                                const watched = watch("imagem") as FileList | undefined;
+                                const currentArray: File[] = watched ? Array.from(watched) : [];
+                                const updateFiles = currentArray.filter((_, i) => i !== index);
+                                setValue("imagem", updateFiles.length > 0 ? (updateFiles as unknown as FileList) : undefined);
+
+                                if (fileInputRef.current) {
+                                    const dt = new DataTransfer();
+                                    updateFiles.forEach((f) => dt.items.add(f));
+                                    try {
+                                            fileInputRef.current.files = dt.files;
+                                        } catch {
+                                            // fallback: clear the input when assignment isn't allowed
+                                            fileInputRef.current.value = "";
+                                        }
+                                    if (updateFiles.length === 0) {
+                                        fileInputRef.current.value = "";
+                                    }
+                                }
                                }}
 
                                 onClear={() => {
                                     resetField("imagem");
                                     clearErrors("imagem");
                                     setPreviewImages([]);
+                                    setValue("imagem", undefined);
+                                    if (fileInputRef.current) {
+                                        fileInputRef.current.value = "";
+                                    }
                                 }}
                             />
 
@@ -337,4 +357,4 @@ const Informacoes = () => {
     )
 }
 
-export default Informacoes;
+export default Informacoes
