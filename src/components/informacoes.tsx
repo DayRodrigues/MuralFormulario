@@ -80,7 +80,7 @@ const Informacoes = () => {
         register,
         reset,
         resetField,
-        watch,
+        watch, //Observa as mudanças nos campos
         setError,
         clearErrors,
         setValue,
@@ -90,10 +90,10 @@ const Informacoes = () => {
         mode: "onChange",  //Validação em tempo real
     });
 
-    const fileInputRef = useRef<HTMLInputElement | null>(null); //Referência para o input de arquivos   
-    const [previewImages, setPreviewImages] = useState<string[]>([]); //Estado para guardas as URL temporárias das 
+    const fileInputRef = useRef<HTMLInputElement | null>(null); //Referência para o input de imagem  
+    const [previewImages, setPreviewImages] = useState<string[]>([]); //Estado para guardas as URL temporárias das imagens
 
-    const { registerClearCallback } = useFilterContext();
+    const { registerClearCallback } = useFilterContext(); //Acessa a função do contexto para registrar o callback de limpeza do formulário
 
     const titulo = watch("titulo");
     const realizacao = watch("realizacao");
@@ -104,7 +104,7 @@ const Informacoes = () => {
     const assunto = watch("assunto");
 
     useEffect(() => {
-        registerClearCallback("informacoes", () => {
+        registerClearCallback("informacoes", () => { 
             reset();
             if (fileInputRef.current) {
                 fileInputRef.current.value = "";
@@ -114,16 +114,14 @@ const Informacoes = () => {
         });
     }, [reset, registerClearCallback, titulo, realizacao, publicarPara, responsavel, cargo, seguimento, assunto]);
 
-    const { success } = useAlert()
+    const { success } = useAlert();  //Função para exibir alerta de sucesso
 
-    const onsubmit = (data: UserRegister) => {
+    const onsubmit = (data: UserRegister) => {  //Função chamando o formulário para processar os dados
         console.log(data);
         console.log(data.imagem);
         reset();
         setPreviewImages([]);
-
         success("Atividade públicada!")
-
         if (fileInputRef.current) {
             fileInputRef.current.value = "";
         }
@@ -253,20 +251,20 @@ const Informacoes = () => {
                                 >
                                     Destacar no mural:
                                 </FormLabel>
-                                <Switch
+                                <Switch  //Componente boolean para destacar a atividade 
                                     {...register("destacar")}
                                 />
                             </FormControl>
 
                             <ImageUpload
-                                previewImages={previewImages}
+                                previewImages={previewImages} 
                                 error={errors.imagem?.message?.toString()}
-                                fileInputRef={fileInputRef}
+                                fileInputRef={fileInputRef} 
 
-                               onChange={(files) => {
-                                   if (!files) return;
+                               onChange={(files) => { //Função para adicionar novas imagens
+                                   if (!files) return; 
 
-                                   if (files.length > 3) {
+                                   if (files.length > 3) { 
                                        setError("imagem", {
                                            type: "manual",
                                            message: "Você pode anexar no máximo 3 imagens",
@@ -274,9 +272,9 @@ const Informacoes = () => {
                                        return;
                                    }
 
-                                   clearErrors("imagem");
+                                   clearErrors("imagem"); //Limpa erros anteriores
 
-                                   const previews = Array.from(files).map(file =>
+                                   const previews = Array.from(files).map(file => 
                                        URL.createObjectURL(file)
                                    );
                                    setPreviewImages(previews);
@@ -284,45 +282,45 @@ const Informacoes = () => {
                                    setValue("imagem", files);
                                }}
 
-                               onRemove={(index) => {
-                                setPreviewImages((prev) => {
-                                    const updated = prev.filter((_,i) => i !== index);
+                               onRemove={(index) => { //Função para remoção da imagem individual
+                                setPreviewImages((prev) => { 
+                                    const updated = prev.filter((_,i) => i !== index);  //Remove a URL da imagem
 
-                                    if (updated.length <=3) {
-                                        clearErrors("imagem");
+                                    if (updated.length <=3) { 
+                                        clearErrors("imagem"); 
                                     }
-                                    if(updated.length === 0){
+                                    if(updated.length === 0){ 
                                         resetField("imagem");
                                     }
-                                    return updated;
+                                    return updated; 
                                 });  
-                                const watched = watch("imagem") as FileList | undefined;
-                                const currentArray: File[] = watched ? Array.from(watched) : [];
-                                const updateFiles = currentArray.filter((_, i) => i !== index);
-                                setValue("imagem", updateFiles.length > 0 ? (updateFiles as unknown as FileList) : undefined);
+                                const watched = watch("imagem") as FileList | undefined; //Obtem o valor atual após a remoção para atualizar o estado da imagem
+                                const currentArray: File[] = watched ? Array.from(watched) : []; //Cria um novo array de arquivos a partir do Filelist
+                                const updateFiles = currentArray.filter((_, i) => i !== index); //Remove o arquivo do array
+                                setValue("imagem", updateFiles.length > 0 ? (updateFiles as unknown as FileList) : undefined); //Atualiza o valor do campo no RHF
 
-                                if (fileInputRef.current) {
-                                    const dt = new DataTransfer();
-                                    updateFiles.forEach((f) => dt.items.add(f));
-                                    try {
+                                if (fileInputRef.current) {  
+                                    const dt = new DataTransfer(); 
+                                    updateFiles.forEach((f) => dt.items.add(f)); 
+                                    try { 
                                             fileInputRef.current.files = dt.files;
-                                        } catch {
-                                            // fallback: clear the input when assignment isn't allowed
-                                            fileInputRef.current.value = "";
+                                        } catch { 
+                                            
+                                            fileInputRef.current.value = ""; 
                                         }
                                     if (updateFiles.length === 0) {
                                         fileInputRef.current.value = "";
                                     }
                                 }
-                               }}
+                               }} 
 
-                                onClear={() => {
+                                onClear={() => { //Limpa todas as imagens
                                     resetField("imagem");
                                     clearErrors("imagem");
                                     setPreviewImages([]);
                                     setValue("imagem", undefined);
-                                    if (fileInputRef.current) {
-                                        fileInputRef.current.value = "";
+                                    if (fileInputRef.current) { 
+                                        fileInputRef.current.value = ""; 
                                     }
                                 }}
                             />

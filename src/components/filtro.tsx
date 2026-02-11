@@ -57,11 +57,11 @@ function Filtro() {
   const cargoValue = watch("cargo");
   const seguimentoValue = watch("seguimento");
 
-  useEffect(() => {
-    registerClearCallback("filtro", () => {
+  useEffect(() => { 
+    registerClearCallback("filtro", () => { 
       reset();
     }, () => {
-      return !!cargoValue || !!seguimentoValue;
+      return !!cargoValue || !!seguimentoValue; 
     });
   }, [reset, registerClearCallback, cargoValue, seguimentoValue]);
 

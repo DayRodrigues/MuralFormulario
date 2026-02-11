@@ -22,8 +22,8 @@ type ImageUploadProps = {
     error?: string;
 };
 
-// Referência para o componente de upload das imagem
-const ImageUpload = ({
+
+const ImageUpload = ({ //Props
     previewImages,
     onChange,
     onClear,
@@ -106,7 +106,7 @@ const ImageUpload = ({
                     _hover={{
                         bg: "gray.400"
                     }}
-                    onClick={onClear}
+                    onClick={onClear} 
                 >
                     Excluir
                 </Button>

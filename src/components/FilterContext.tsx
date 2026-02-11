@@ -12,15 +12,15 @@ interface ClearCallback {
   checkHasData: () => boolean;
 }
 
-interface FilterContextType {
+interface FilterContextType { //Criação do contexto para o filtro limpa o formulário e os filtros 
   onClearFilters: () => void;
   registerClearCallback: (name: string, callback: () => void, checkHasData: () => boolean) => void;
-}
+} //
 
-const FilterContext = createContext<FilterContextType | undefined>(undefined);
+const FilterContext = createContext<FilterContextType | undefined>(undefined); 
 
-export const FilterProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [clearCallbacks, setClearCallbacks] = useState<ClearCallback[]>([]);
+export const FilterProvider: React.FC<{ children: ReactNode }> = ({ children }) => { 
+  const [clearCallbacks, setClearCallbacks] = useState<ClearCallback[]>([]); 
 
   const registerClearCallback = (name: string, callback: () => void, checkHasData: () => boolean) => {
     setClearCallbacks(prev => {
@@ -39,8 +39,8 @@ export const FilterProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     });
   };
 
-  return (
-    <FilterContext.Provider value={{ onClearFilters, registerClearCallback }}>
+  return ( //Fornece os valores para o componente filho, permitindo que acessem a função ao invés de passar pela props
+    <FilterContext.Provider value={{ onClearFilters, registerClearCallback }}> 
       {children}
     </FilterContext.Provider>
   );
