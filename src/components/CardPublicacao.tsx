@@ -70,7 +70,7 @@ const CardPublicacao = () => {
                                         borderColor="gray.400"
                                         border="10px"
                                         w="auto"
-                                        h={{ base: "300px", md: "500px" }}
+                                        h={{ base: "300px", md: "400px" }}
                                         borderRadius="2xl"
                                         src="/img/img_reflorestamento.png" alt="imagem reflorestamento" />
                                 </Box>
@@ -85,11 +85,11 @@ const CardPublicacao = () => {
                             </CardBody>
                             <Icon
                                 as={CiStar}
-                                boxSize="60px"
+                                boxSize="55px"
                                 color="#ddca19"
                                 position="absolute"
                                 top="-30px"  
-                                right="20px"  
+                                right="10px"  
                                 bg="white"   
                                 borderRadius="full"
                                 p="2px"         
@@ -133,7 +133,7 @@ const CardPublicacao = () => {
                                                 borderColor="gray.400"
                                                 border="10px"
                                                 w="auto"
-                                                h={{ base: "auto", md: "150px", lg:"300px"}}
+                                                h={{ base: "auto", md: "150px", lg:"250px"}}
                                                 borderRadius="2xl"
                                                 src={imagem}
                                                 alt={`Atividade${index + 1}`}

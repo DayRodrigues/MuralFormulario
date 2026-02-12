@@ -31,7 +31,7 @@ export default function Home() {
         <Divider margin={"10px"}/>
         <ButtonAtividade />
         <CardPublicacao />
-        <Spacer />
+        <Spacer /> 
         <Footer />
         </Flex>
         </main>
