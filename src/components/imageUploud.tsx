@@ -41,7 +41,7 @@ const ImageUpload = ({ //Props
                     label="Máx. 3 imagens"
                     fontSize="md"
                     borderRadius="md"
-                    bg="red.600"
+                    bg="black"
                 >
                     <Icon as={CiImageOn} boxSize={7} mr={4} />
                 </Tooltip>
