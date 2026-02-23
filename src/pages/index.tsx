@@ -6,7 +6,7 @@ import Footer from "../components/footer";
 import { Divider, Flex, Spacer } from "@chakra-ui/react";
 import Filtro from "@/components/filtro";
 import ButtonAtividade from "@/components/buttonAtividade";
-import CardPublicacao from "@/components/CardPublicacao";
+import CardPublicacao from "@/components/Publicacao";
 
 export default function Home() {
   return (
@@ -23,7 +23,7 @@ export default function Home() {
         h={"100%"}
         minH={"100vh"}
         >
-        <Header />
+        {/* <Header /> */}
         <HeaderMenu />
         <Divider />
         <Title />
@@ -31,8 +31,8 @@ export default function Home() {
         <Divider margin={"10px"}/>
         <ButtonAtividade />
         <CardPublicacao />
-        <Spacer /> 
-        <Footer />
+        {/* <Spacer />  */}
+        {/* <Footer /> */}
         </Flex>
         </main>
        

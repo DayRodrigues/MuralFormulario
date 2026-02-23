@@ -47,6 +47,31 @@ const ImageUpload = ({ //Props
                 </Tooltip>
             </FormLabel>
 
+            <Flex gap={2}>
+                <Input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    p="5px"
+                    flex="1"
+                    // Referência para limpar o input
+                    ref={fileInputRef}
+                    // Chama a função nas props, enviando as imagens selecionadas 
+                    onChange={(e) => onChange(e.target.files)}
+                />
+
+                <Button
+                    type="button"
+                    bg="gray.300"
+                    _hover={{
+                        bg: "gray.400"
+                    }}
+                    onClick={onClear}
+                >
+                    Excluir
+                </Button>
+            </Flex>
+
             <Flex
                 direction={{ base: "column" }}
                 gap={2}
@@ -56,65 +81,42 @@ const ImageUpload = ({ //Props
                     <Flex mt={3} wrap="wrap" gap="15px">
                         {previewImages.map((src, index) => (
                             <Flex
-                            key={index}
-                            position="relative"
-                            boxSize="120px"
+                                key={index}
+                                position="relative"
+                                boxSize="120px"
                             >
 
-                            <Image
-                                src={src}
-                                alt={`Preview ${index}`}
-                                boxSize="120px"
-                                objectFit="cover"
-                                borderRadius="md"
-                            />
+                                <Image
+                                    src={src}
+                                    alt={`Preview ${index}`}
+                                    boxSize="120px"
+                                    objectFit="cover"
+                                    borderRadius="md"
+                                />
 
-                            <Button
-                            size="xs"
-                            position="absolute"
-                            top="2px"
-                            right="2px"
-                            borderRadius="full"
-                            bg="blackAlpha.700"
-                            color="white"
-                            _hover={{bg: "red.500"}}
-                            onClick={() => onRemove(index)}
+                                <Button
+                                    size="xs"
+                                    position="absolute"
+                                    top="2px"
+                                    right="2px"
+                                    borderRadius="full"
+                                    bg="blackAlpha.700"
+                                    color="white"
+                                    _hover={{ bg: "black" }}
+                                    onClick={() => onRemove(index)}
                                 >
-                            x
-                            </Button>
-                           </Flex>
+                                    x
+                                </Button>
+                            </Flex>
                         ))}
-                        </Flex>  
+                    </Flex>
                 )}
 
-                <Flex gap={2}>
-                 <Input
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    p="5px"
-                    flex="1"
-                    // Referência para limpar o input
-                        ref={fileInputRef} 
-                    // Chama a função nas props, enviando as imagens selecionadas 
-                        onChange={(e) => onChange(e.target.files)}
-                    />
 
-                <Button
-                    type="button"
-                    bg="gray.300"
-                    _hover={{
-                        bg: "gray.400"
-                    }}
-                    onClick={onClear} 
-                >
-                    Excluir
-                </Button>
+                <FormErrorMessage>{error}</FormErrorMessage>
             </Flex>
-            <FormErrorMessage>{error}</FormErrorMessage>
-        </Flex>
-    </FormControl >
-  );
+        </FormControl >
+    );
 };
 
 export default ImageUpload;
