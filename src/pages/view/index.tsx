@@ -6,12 +6,11 @@ import {
 
 
 } from '@chakra-ui/react'
-import Card1 from './publicacoes/card1'
-import Card2 from './publicacoes/card2'
-import Card3 from './publicacoes/card3'
+import Card1 from '../../components/card1'
+import Card2 from '../../components/card2'
+import Card3 from '../../components/card3'
 
 export default function viewPublicacoes() {
-
 
     return (
 

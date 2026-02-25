@@ -21,13 +21,14 @@ type CardPublicacaoProps = {
     titulo: string;
     data: string;
     descricao: string;
-    link: string;
+
     imagem?: boolean;
     destaque?: boolean;
     labelImagem?: string;
     responsavel: string;
     cargo:string;
     segmento:string;
+    onVerMais?: () => void;
 };
 
 export const CardPublicacao = ({
@@ -37,10 +38,10 @@ export const CardPublicacao = ({
     responsavel,
     cargo,
     segmento,
-    link, 
     imagem = false,
     destaque = false,
     labelImagem = "1 imagem",
+    onVerMais,
 }: CardPublicacaoProps) => {
 
     return (
@@ -54,17 +55,15 @@ export const CardPublicacao = ({
              position="absolute" 
              top="-20px"
              right="20px"
-             bg="white"
              color= "#ebc137"
              cursor="pointer"
              />
              </Tooltip>
              )}            
-            <CardHeader display="column" flexDirection="column">
+            <CardHeader display="flex" flexDirection="column">
                 <Heading size="md">{titulo}</Heading>
                 <Text fontSize="sm" color="gray.700" >{data}</Text>
             </CardHeader>
-
             
             <CardBody>
                 <VStack align="start" spacing={2}>
@@ -87,6 +86,7 @@ export const CardPublicacao = ({
                     <Badge colorScheme="blue">Imagem em anexo</Badge>
                 </FormLabel>
                 )}
+                
                 {responsavel &&(
                     <Text>
                         <strong>Responsável pela realização:</strong> {responsavel} - {cargo} - {segmento}
@@ -96,7 +96,7 @@ export const CardPublicacao = ({
             </CardBody>
            
             <CardFooter justifyContent="flex-end">
-                <Button as="a" href={link}
+                <Button onClick={onVerMais}
                     colorScheme='blue'>Ver mais
                 </Button>
             </CardFooter>
