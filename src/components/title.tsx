@@ -6,7 +6,6 @@ const Title = () => {
 
         <Flex
             px={{ base: "8px", md: "100px" }}
-            margin="8px"
             align="center"
         >
             <Text className="Title"

@@ -94,7 +94,7 @@ function Filtro() {
   return (
     <Flex
       w="100%"
-      mt="20px"
+      mt={{base:"3rem",md:"10rem"}}
     >
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
         <Button

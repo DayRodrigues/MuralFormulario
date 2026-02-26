@@ -1,12 +1,12 @@
 import Head from "next/head";
-// import Header from "../components/header";
 import HeaderMenu from "@/components/headerMenu";
 import Title from "../components/title";
-// import Footer from "../components/footer";
-import { Divider, Flex, Spacer } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import Filtro from "@/components/filtro";
 import ButtonAtividade from "@/components/buttonAtividade";
 import CardPublicacao from "@/components/Publicacao";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 export default function Home() {
   return (
@@ -19,20 +19,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
        </Head>
         <Flex
-        flexDirection={"column"}
-        h={"100%"}
+        direction={"column"}
         minH={"100vh"}
         >
-        {/* <Header /> */}
+        <Header />
         <HeaderMenu />
-        <Divider />
         <Title />
         <Filtro />
-        <Divider margin={"10px"}/>
         <ButtonAtividade />
-        <CardPublicacao />
-        <Spacer /> 
-        {/* <Footer /> */}
+        <CardPublicacao />        
+        <Footer />
         </Flex>
         </main>
        

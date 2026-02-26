@@ -18,6 +18,7 @@ function ButtonAtividade() {
         px={{ base: "10px", md: "50px" }}
         justify={{ md: "flex-end" }}
         pr={{ base: "center", md: "100px" }}
+        my={{base:"2rem", md:"10px"}}
       >
         <Button
           type="button"

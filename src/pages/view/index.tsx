@@ -31,7 +31,7 @@ export default function viewPublicacoes() {
                     fontSize={{ base: "18px", md: "18px", lg: "28px" }}
                     m="10x"
                 >
-                    Publicações
+                    Publicação
                 </Heading>
 
                     <Box

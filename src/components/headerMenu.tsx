@@ -6,7 +6,7 @@ const HeaderMenu = () => {
   return (
     <Flex
       px={{base:"8px", md:"100px"}}
-      m="8px"
+      my={{base:"10px", md:"40px"}}
       gap="8px"
       align="center"
       fontSize="18px"
