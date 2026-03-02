@@ -12,11 +12,7 @@ import {
 
 } from '@chakra-ui/react'
 
-type Card2Props = {
-    onVoltar: () => void;
-};
-
-export default function Card1({ onVoltar }: Card2Props) {
+export default function Card1() {
 
     return (
         <>
@@ -36,7 +32,9 @@ export default function Card1({ onVoltar }: Card2Props) {
                             boxShadow="0 0 30px rgba(0, 0, 0, 0.25)"
                         >
                             <CardHeader>
-                                <Heading size='md'> Reunião </Heading>
+                                <Heading 
+                                justifySelf="center" 
+                                size='md'> Reunião </Heading>
                                 <Text fontSize="sm" color="gray.700">
                                     02/03/2026
                                 </Text>
@@ -56,9 +54,10 @@ export default function Card1({ onVoltar }: Card2Props) {
                                     w="100%"
                                     justifyContent="flex-end"
                                     >
-                                    <Button 
+                                    <Button
+                                    as="a"
+                                    href="/" 
                                     mt={4} 
-                                    onClick={onVoltar} 
                                     bg="white"
                                     border="1px solid"
                                     borderColor="gray.400"

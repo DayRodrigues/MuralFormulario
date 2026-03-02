@@ -12,13 +12,9 @@ import {
     SimpleGrid,
     VStack,
     Button,
-
 } from '@chakra-ui/react'
-type Props = {
-    onVoltar: () => void;
-};
 
-export default function Card3({ onVoltar }: Props) {
+export default function Card3() {
     const imagens = [
         "/img/img-atividade1.png",
         "/img/img-atividade2.png",
@@ -37,7 +33,6 @@ export default function Card3({ onVoltar }: Props) {
                     display="flex"
                     justifySelf="center"
                     w={{ base: "100%", md: "80%", lg: "60%" }}
-
                 >
                     <Stack spacing='4' px={{ base: "20px" }}>
 
@@ -45,15 +40,15 @@ export default function Card3({ onVoltar }: Props) {
                             border="3px"
                             boxShadow="0 0 30px rgba(0, 0, 0, 0.25)"
                         >
-                            <CardHeader >
-                                <Heading size='md'> 1º Bimestre </Heading>
+                            <CardHeader>
+                                <Heading justifySelf="center" size='md'> 1º Bimestre </Heading>
                                 <Text fontSize="sm" color="gray.700">
                                     04/04/2026
                                 </Text>
                             </CardHeader>
                             <CardBody>
-                                <VStack align="start" spacing={4} >
-                                    <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
+                                <VStack align="start" spacing={4}>
+                                    <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}  >
                                         {imagens.map((src, index) => (
                                             <Image
                                                 key={index}
@@ -68,7 +63,7 @@ export default function Card3({ onVoltar }: Props) {
 
                                     <Text>
                                         <strong>Responsável pela realização: </strong>
-                                        Julina - professor(a) - EF Anos Finais
+                                        Juliana - professor(a) - EF Anos Finais
                                     </Text>
 
                                     <Text textAlign="justify" textIndent="20px">
@@ -87,9 +82,10 @@ export default function Card3({ onVoltar }: Props) {
                                     w="100%"
                                     justifyContent="flex-end"
                                     >
-                                    <Button 
+                                    <Button
+                                    as="a"
+                                    href="/" 
                                     mt={4} 
-                                    onClick={onVoltar} 
                                     bg="white"
                                     border="1px solid"
                                     borderColor="gray.400"

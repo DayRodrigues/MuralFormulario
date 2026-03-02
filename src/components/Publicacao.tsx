@@ -11,6 +11,7 @@ import { CardPublicacao } from './CardPublicacao'
 import Card1 from './card1'
 import Card2 from './card2'
 import Card3 from './card3'
+import ButtonAtividade from './buttonAtividade'
 
 const Publicacoes = [{
   id: "Card1",
@@ -64,18 +65,18 @@ const Publicacao = () => {
           pl="10px"
           fontSize={{ base: "18px", lg: "28px" }}
         >
-          Publicação
+          Publicações
         </Heading>
+      
+        <ButtonAtividade onVoltar={() => setPublicacaoSelecionada(null)} />
 
-        {/* Se for selecionado, mostrar o card */}
+        {/* Se um card estiver selecionado, mostra ele */}
         {publicacaoSelecionada === "Card1" && (
           <Card1 onVoltar={() => setPublicacaoSelecionada(null)} />
         )}
-
         {publicacaoSelecionada === "Card2" && (
           <Card2 onVoltar={() => setPublicacaoSelecionada(null)} />
         )}
-
         {publicacaoSelecionada === "Card3" && (
           <Card3 onVoltar={() => setPublicacaoSelecionada(null)} />
         )}
@@ -94,6 +95,7 @@ const Publicacao = () => {
             </SimpleGrid>
           </Box>
         )}
+
       </Box>
     </Flex>
   )

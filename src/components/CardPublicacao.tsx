@@ -1,4 +1,3 @@
-
 import {
     Badge,
     Button,
@@ -6,6 +5,7 @@ import {
     CardBody,
     CardFooter,
     CardHeader,
+    Flex,
     FormLabel,
     Heading,
     Icon,
@@ -46,24 +46,28 @@ export const CardPublicacao = ({  //props
         <Card position="relative" boxShadow="0 0 20px rgba(0, 0, 0, 0.25)" >
 
             {destaque && (  //Se destaque for verdadeiro renderize
+            <Flex
+            justifyContent="flex-end"
+            >
                 <Tooltip label="Destaque" hasArrow>
                     <Icon
                         as={TiStarFullOutline}
                         boxSize={10}
-                        position="absolute"
-                        top="-20px"
-                        right="20px"
+                        position="absolute"                        
                         color="#ebc137"
                         cursor="pointer"
+                        top="-20px"
+                        left=""
                     />
                 </Tooltip>
+            </Flex>
             )}
-            <CardHeader display="flex" flexDirection="column" >
+            <CardHeader display="flex" flexDirection="column">
                 <Heading size="md">{titulo}</Heading>
                 <Text fontSize="sm" color="gray.700" >{data}</Text>
             </CardHeader>
 
-            <CardBody >
+            <CardBody  >
                 <VStack align="start" spacing={2}>
                     <Tooltip label={descricao}>  {/* mostra o texto completo na prévia  */}
                         <Text noOfLines={{ base: 2, md: 1 }}>{descricao}</Text> {/* Especifica a quantidade de linhas que irão aparecer  */}

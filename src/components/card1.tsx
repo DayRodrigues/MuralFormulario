@@ -13,11 +13,7 @@ import {
     Button,
 } from '@chakra-ui/react'
 
-type Card1Props = {
-    onVoltar: () => void;
-};
-
-export default function Card1({ onVoltar }: Card1Props) {
+export default function Card1() {
 
 
     return (
@@ -39,9 +35,10 @@ export default function Card1({ onVoltar }: Card1Props) {
                             border="3px "
                             boxShadow="0 0 30px rgba(0, 0, 0, 0.25)"
                         >
-                            <CardHeader>
-                                <Heading size='md'> Reflorestamento </Heading>
-                                <Text fontSize="sm" color="gray.700">
+                            <CardHeader >
+                                <Heading justifySelf="center"
+                                size='md'> Reflorestamento </Heading>
+                                <Text fontSize="sm" color="gray.700" my="1rem">
                                     30/03/2026
                                 </Text>
                             </CardHeader>
@@ -52,7 +49,7 @@ export default function Card1({ onVoltar }: Card1Props) {
                                         w={{ base: "150px", md: "200px" }}
                                         src='/img/img_reflorestamento.png'
                                         alt='imagem reflorestamento'
-                                        borderRadius='lg'
+                                        borderRadius='xl'
                                         alignSelf="center"
                                     />
 
@@ -72,8 +69,9 @@ export default function Card1({ onVoltar }: Card1Props) {
                                     justifyContent="flex-end"
                                     >
                                     <Button 
+                                    as="a"
+                                    href="/"
                                     mt={4} 
-                                    onClick={onVoltar} 
                                     bg="white"
                                     border="1px solid"
                                     borderColor="gray.400"

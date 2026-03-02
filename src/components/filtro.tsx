@@ -9,7 +9,6 @@ import {
   FormLabel,
   Select,
   SimpleGrid,
-  Flex,
 } from "@chakra-ui/react";
 import { FaFilter } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
@@ -92,11 +91,15 @@ function Filtro() {
   };
 
   return (
-    <Flex
-      w="100%"
-      mt={{base:"3rem",md:"10rem"}}
-    >
-      <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
+
+    <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
+     
+      <Box
+      display="flex"
+      justifyContent={{base:"flex-end", md:"flex-start"}}
+      mt={{base:"2rem", md:"8rem"}}
+      px={{base:"1.5rem",md:"10px"}}
+      >
         <Button
           type="button"
           onClick={onToggle}
@@ -110,8 +113,10 @@ function Filtro() {
           }}
         >
           <Icon as={FaFilter} boxSize="15px" mr={2} />
-          <Text > Filtrar </Text>
+          Filtrar
         </Button>
+        </Box>
+
         <Collapse in={isOpen} animateOpacity>
 
           <Box
@@ -212,9 +217,7 @@ function Filtro() {
             </Button>
           </Box>
         </Collapse>
-      </form>
-    </Flex>
-
+    </form>
   );
 }
 
