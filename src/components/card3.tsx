@@ -36,19 +36,19 @@ export default function Card3({ onVoltar }: Props) {
                 <Box
                     display="flex"
                     justifySelf="center"
-                    w={{ base: "100%", md: "50%" }}
+                    w={{ base: "100%", md: "80%", lg: "60%" }}
 
                 >
                     <Stack spacing='4' px={{ base: "20px" }}>
 
                         <Card
                             border="3px"
-                            boxShadow="0 0 15px rgba(0, 0, 0, 0.25)"
+                            boxShadow="0 0 30px rgba(0, 0, 0, 0.25)"
                         >
                             <CardHeader >
                                 <Heading size='md'> 1º Bimestre </Heading>
                                 <Text fontSize="sm" color="gray.700">
-                                    23/02/2026
+                                    04/04/2026
                                 </Text>
                             </CardHeader>
                             <CardBody>
@@ -83,9 +83,23 @@ export default function Card3({ onVoltar }: Props) {
                                         percebo evolução na participação e no compromisso com as atividades,
                                         mas continuarei reforçando organização, autonomia e atenção durante as explicações.
                                     </Text>
-                                    <Button mt={4} onClick={onVoltar} colorScheme="gray">
+                                    <Flex
+                                    w="100%"
+                                    justifyContent="flex-end"
+                                    >
+                                    <Button 
+                                    mt={4} 
+                                    onClick={onVoltar} 
+                                    bg="white"
+                                    border="1px solid"
+                                    borderColor="gray.400"
+                                    _hover={{
+                                        bg:"white"
+                                    }}
+                                    >
                                         Voltar
                                     </Button>
+                                    </Flex>
                                 </VStack>
                             </CardBody>
                         </Card>

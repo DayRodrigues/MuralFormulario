@@ -24,25 +24,25 @@ export default function Card1({ onVoltar }: Card1Props) {
         <>
 
             <Flex
-                w={{ base: "auto", md: "90%" }}
+                w={{ base: "100%", md: "90%" }}
                 margin={{ md: "auto" }}
                 my={{ base: "10px", md: "30px", }}
                 justifyContent="center"
             >
                 <Box
-                    w={{ base: "100%", md: "50%" }}
+                    w={{ base: "100%", md: "80%", lg: "60%"  }}
                     m={{ base: "auto", md: "30px" }}
                 >
                     <Stack spacing='4' px={{ base: "20px" }} >
 
                         <Card
                             border="3px "
-                            boxShadow="0 0 15px rgba(0, 0, 0, 0.25)"
+                            boxShadow="0 0 30px rgba(0, 0, 0, 0.25)"
                         >
                             <CardHeader>
                                 <Heading size='md'> Reflorestamento </Heading>
                                 <Text fontSize="sm" color="gray.700">
-                                    23/02/2026
+                                    30/03/2026
                                 </Text>
                             </CardHeader>
                             <CardBody>
@@ -68,9 +68,18 @@ export default function Card1({ onVoltar }: Card1Props) {
                                         Contamos com a presença de todos para tornar esse dia ainda mais significativo!
                                     </Text>
                                     <Flex
+                                    w="100%"
                                     justifyContent="flex-end"
                                     >
-                                    <Button mt={4} onClick={onVoltar} colorScheme="blue"
+                                    <Button 
+                                    mt={4} 
+                                    onClick={onVoltar} 
+                                    bg="white"
+                                    border="1px solid"
+                                    borderColor="gray.400"
+                                    _hover={{
+                                        bg:"white"
+                                    }}
                                     >
                                         Voltar
                                     </Button>

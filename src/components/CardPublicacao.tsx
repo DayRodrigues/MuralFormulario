@@ -1,3 +1,4 @@
+
 import {
     Badge,
     Button,
@@ -12,9 +13,7 @@ import {
     Tooltip,
     VStack
 } from "@chakra-ui/react"
-import {
-    CiImageOn
-} from "react-icons/ci";
+import { CiImageOn } from "react-icons/ci";
 import { TiStarFullOutline } from "react-icons/ti";
 
 type CardPublicacaoProps = { //tipos
@@ -44,7 +43,7 @@ export const CardPublicacao = ({  //props
 }: CardPublicacaoProps) => {
 
     return (
-        <Card borderColor="gray.600" position="relative" boxShadow="0 0 15px rgba(0, 0, 0, 0.25)" >
+        <Card position="relative" boxShadow="0 0 20px rgba(0, 0, 0, 0.25)" >
 
             {destaque && (  //Se destaque for verdadeiro renderize
                 <Tooltip label="Destaque" hasArrow>
@@ -66,7 +65,7 @@ export const CardPublicacao = ({  //props
 
             <CardBody >
                 <VStack align="start" spacing={2}>
-                    <Tooltip label={descricao}>  {/* mostra o texto completo  */}
+                    <Tooltip label={descricao}>  {/* mostra o texto completo na prévia  */}
                         <Text noOfLines={{ base: 2, md: 1 }}>{descricao}</Text> {/* Especifica a quantidade de linhas que irão aparecer  */}
                     </Tooltip>
 
@@ -92,8 +91,8 @@ export const CardPublicacao = ({  //props
                 </VStack>
             </CardBody>
 
-            <CardFooter justifyContent="flex-end" >
-                <Button onClick={onVerMais} colorScheme='blue'> {/* Executa a função */}
+            <CardFooter justifyContent="flex-end">{/* Executa a função */}
+                <Button onClick={onVerMais} colorScheme="blue" >
                     Ver mais
                 </Button>
             </CardFooter>
