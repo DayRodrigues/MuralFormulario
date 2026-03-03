@@ -6,12 +6,15 @@ import {
   Box,
   SimpleGrid,
 } from '@chakra-ui/react'
-import { useState } from 'react'
 import { CardPublicacao } from './CardPublicacao'
 import Card1 from './card1'
 import Card2 from './card2'
 import Card3 from './card3'
-import ButtonAtividade from './buttonAtividade'
+
+type PublicacaoProps = {
+  publicacaoSelecionada: string | null
+  setPublicacaoSelecionada: (id: string | null) => void
+}
 
 const Publicacoes = [{
   id: "Card1",
@@ -46,10 +49,7 @@ const Publicacoes = [{
   segmento: "EF Anos Finais",
 }]
 
-const Publicacao = () => {
-
-  const [publicacaoSelecionada, setPublicacaoSelecionada] =
-    useState<string | null>(null)
+const Publicacao = ({ publicacaoSelecionada, setPublicacaoSelecionada }: PublicacaoProps) => {
 
   return (
     <Flex
@@ -65,11 +65,9 @@ const Publicacao = () => {
           pl="10px"
           fontSize={{ base: "18px", lg: "28px" }}
         >
-          Publicações
+          Publicação
         </Heading>
       
-        <ButtonAtividade onVoltar={() => setPublicacaoSelecionada(null)} />
-
         {/* Se um card estiver selecionado, mostra ele */}
         {publicacaoSelecionada === "Card1" && (
           <Card1 onVoltar={() => setPublicacaoSelecionada(null)} />
@@ -81,21 +79,28 @@ const Publicacao = () => {
           <Card3 onVoltar={() => setPublicacaoSelecionada(null)} />
         )}
 
-        {/* Se nenhuma publicação for selecionada irá mostrar o grid */}
-        {!publicacaoSelecionada && (
-          <Box py="1rem">
-            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5}>
-              {Publicacoes.map((pub) => (
-                <CardPublicacao
-                  key={pub.id}
-                  {...pub}
-                  onVerMais={() => setPublicacaoSelecionada(pub.id)}
-                />
-              ))}
-            </SimpleGrid>
-          </Box>
-        )}
+        {/* Cards com destaque — centralizados em cima */}
+    <Flex justify="center" wrap="wrap" gap={5} mb={5}>
+      {Publicacoes.filter((pub) => pub.destaque).map((pub) => (
+        <Box key={pub.id} w={{ base: "100%", md: "30%" }}>
+          <CardPublicacao
+            {...pub}
+            onVerMais={() => setPublicacaoSelecionada(pub.id)}
+          />
+        </Box>
+      ))}
+    </Flex>
 
+    {/* Cards sem destaque — embaixo em grid normal */}
+    <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5}>
+      {Publicacoes.filter((pub) => !pub.destaque).map((pub) => (
+        <CardPublicacao
+          key={pub.id}
+          {...pub}
+          onVerMais={() => setPublicacaoSelecionada(pub.id)}
+        />
+      ))}
+            </SimpleGrid>
       </Box>
     </Flex>
   )

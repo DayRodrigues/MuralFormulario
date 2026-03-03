@@ -22,7 +22,6 @@ type ImageUploadProps = {
     error?: string;
 };
 
-
 const ImageUpload = ({ //Props
     previewImages,
     onChange,
@@ -59,7 +58,7 @@ const ImageUpload = ({ //Props
                     // Chama a função nas props, enviando as imagens selecionadas 
                     onChange={(e) => onChange(e.target.files)}
                 />
-
+                {previewImages.length > 0 && (  
                 <Button
                     type="button"
                     bg="gray.300"
@@ -70,6 +69,7 @@ const ImageUpload = ({ //Props
                 >
                     Excluir
                 </Button>
+                )}
             </Flex>
 
             <Flex
@@ -111,8 +111,6 @@ const ImageUpload = ({ //Props
                         ))}
                     </Flex>
                 )}
-
-
                 <FormErrorMessage>{error}</FormErrorMessage>
             </Flex>
         </FormControl >

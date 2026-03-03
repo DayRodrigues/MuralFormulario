@@ -10,30 +10,33 @@ import Informacoes from "./informacoes";
 import { IoMdAddCircleOutline } from "react-icons/io";
 
 type ButtonAtividadeProps = {
-  onVoltar: () => void;
+  publicacaoSelecionada?: string | null;
 }
 
-function ButtonAtividade({ onVoltar }: ButtonAtividadeProps) {
+function ButtonAtividade({ publicacaoSelecionada}: ButtonAtividadeProps) {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
     <>
       <Flex
         px={{ base: "30px", md: "50px" }}
-        justify={{ base:"flex-end", md: "flex-end" }}
+        justify="flex-end"
         pr={{ base: "center", md: "100px" }}
-        my={{base:"2rem", md:"40px"}}
+        my={{ base: "2rem", md: "40px" }}
+        gap={2}
       >
+         {publicacaoSelecionada && (
          <Button
+          display={{ base: "none", md: "flex" }}
+          as="a"
+          href="/"
           border="1px solid gray"
           bg="white"
           _hover={{ bg: "white" }}
-          onClick={onVoltar} 
         >
           Voltar
-        </Button>
-
-
+        </Button> 
+        )}  
 
         <Button
           type="button"

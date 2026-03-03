@@ -14,7 +14,12 @@ import {
     Button,
 } from '@chakra-ui/react'
 
-export default function Card3() {
+type Card3Props = {
+    onVoltar: () => void
+}
+
+export default function Card3({ onVoltar }: Card3Props) {
+
     const imagens = [
         "/img/img-atividade1.png",
         "/img/img-atividade2.png",
@@ -51,11 +56,11 @@ export default function Card3() {
                                     <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}  >
                                         {imagens.map((src, index) => (
                                             <Image
+                                                display="flex"
                                                 key={index}
                                                 src={src}
                                                 alt={`imagem ${index + 1}`}
                                                 borderRadius='lg'
-                                                display="flex"
                                                 justifySelf="center"
                                             />
                                         ))}
@@ -83,8 +88,8 @@ export default function Card3() {
                                     justifyContent="flex-end"
                                     >
                                     <Button
-                                    as="a"
-                                    href="/" 
+                                    display={{base:"flex", md:"none"}}
+                                    onClick={onVoltar}  
                                     mt={4} 
                                     bg="white"
                                     border="1px solid"

@@ -52,12 +52,12 @@ export const CardPublicacao = ({  //props
                 <Tooltip label="Destaque" hasArrow>
                     <Icon
                         as={TiStarFullOutline}
-                        boxSize={10}
+                        boxSize={50}
                         position="absolute"                        
                         color="#ebc137"
                         cursor="pointer"
                         top="-20px"
-                        left=""
+                        right="-15px"
                     />
                 </Tooltip>
             </Flex>

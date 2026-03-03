@@ -13,7 +13,11 @@ import {
     Button,
 } from '@chakra-ui/react'
 
-export default function Card1() {
+type Card1Props = { 
+    onVoltar: () => void
+}
+
+export default function Card1({ onVoltar }: Card1Props  ) {
 
 
     return (
@@ -69,8 +73,8 @@ export default function Card1() {
                                     justifyContent="flex-end"
                                     >
                                     <Button 
-                                    as="a"
-                                    href="/"
+                                    display={{base:"flex", md:"none"}}
+                                    onClick={onVoltar}
                                     mt={4} 
                                     bg="white"
                                     border="1px solid"

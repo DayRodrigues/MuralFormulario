@@ -3,10 +3,9 @@ import HeaderMenu from "@/components/headerMenu";
 import Title from "../components/title";
 import { Flex } from "@chakra-ui/react";
 import Filtro from "@/components/filtro";
-import ButtonAtividade from "@/components/buttonAtividade";
-import CardPublicacao from "@/components/Publicacao";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import MuralPublicacao from "@/components/muralPublicacao";   
 
 export default function Home() {
   return (
@@ -26,8 +25,7 @@ export default function Home() {
         <HeaderMenu />
         <Title />
         <Filtro />
-        <ButtonAtividade />
-        <CardPublicacao />        
+        <MuralPublicacao />        
         <Footer />
         </Flex>
         </main>
