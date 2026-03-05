@@ -84,22 +84,22 @@ export default function Card3({ onVoltar }: Card3Props) {
                                         mas continuarei reforçando organização, autonomia e atenção durante as explicações.
                                     </Text>
                                     <Flex
-                                    w="100%"
-                                    justifyContent="flex-end"
+                                        w="100%"
+                                        justifyContent="flex-end"
                                     >
-                                    <Button
-                                    display={{base:"flex", md:"none"}}
-                                    onClick={onVoltar}  
-                                    mt={4} 
-                                    bg="white"
-                                    border="1px solid"
-                                    borderColor="gray.400"
-                                    _hover={{
-                                        bg:"white"
-                                    }}
-                                    >
-                                        Voltar
-                                    </Button>
+                                        <Button
+                                            display={{ base: "flex", md: "none" }}
+                                            onClick={onVoltar}
+                                            mt={4}
+                                            bg="white"
+                                            border="1px solid"
+                                            borderColor="gray.400"
+                                            _hover={{
+                                                bg: "white"
+                                            }}
+                                        >
+                                            Voltar
+                                        </Button>
                                     </Flex>
                                 </VStack>
                             </CardBody>

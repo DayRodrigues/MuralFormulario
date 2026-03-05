@@ -257,34 +257,49 @@ const Informacoes = () => {
                             </FormControl>
 
                             <ImageUpload
+                                //props
                                 previewImages={previewImages} 
                                 error={errors.imagem?.message?.toString()}
                                 fileInputRef={fileInputRef} 
-
-                               onChange={(files) => { //Função para adicionar novas imagens
+                                
+                               //Função para adicionar novas imagens, se não tiver imagem ele retorna.
+                               onChange={(files) => { 
                                    if (!files) return; 
 
-                                   if (files.length > 3) { 
+                                   //pega o valor atual do campo e converte para array.
+                                   const watched = watch("imagem") as FileList | undefined;
+                                   const existingFiles:File[] = watched ? Array.from(watched) : [];
+                                    
+                                   //junta os arquivos antigos com os novos.
+                                   const allFiles = [...existingFiles, ...Array.from(files)];
+
+                                   if (allFiles.length > 3) { 
                                        setError("imagem", {
                                            type: "manual",
                                            message: "Você pode anexar no máximo 3 imagens",
                                        });
                                        return;
                                    }
-
-                                   clearErrors("imagem"); //Limpa erros anteriores
-
-                                   const previews = Array.from(files).map(file => 
+                                   //Se o erro estiver válido, limpa.
+                                   clearErrors("imagem"); 
+                                   //cria URL temporária da imagem, criando o preview antes de enviar.
+                                   const newPreviews = Array.from(files).map(file => 
                                        URL.createObjectURL(file)
                                    );
-                                   setPreviewImages(previews);
-
-                                   setValue("imagem", files);
+                                   //atualiza o estado juntando o previews antigos com os novos
+                                   setPreviewImages(prev => [...prev, ...newPreviews]);
+                                
+                                   //dataTransfer é um objeto que arrasta arquivos, porém nesse caso está sendo usado para uma nova FileList, na qual setValue atualiza o valor do campo
+                                   const dt = new DataTransfer();
+                                   allFiles.forEach(f => dt.items.add(f));
+                                   setValue("imagem", dt.files);
                                }}
+                              //Função para remoção da imagem individual
+                               onRemove={(index) => { 
 
-                               onRemove={(index) => { //Função para remoção da imagem individual
-                                setPreviewImages((prev) => { 
-                                    const updated = prev.filter((_,i) => i !== index);  //Remove a URL da imagem
+                                setPreviewImages((prev) => { //Atualiza os previews removendo pelo índice
+                                    const updated = prev.filter((_,i) => i !== index);  //Remove o preview da posição.
+
 
                                     if (updated.length <=3) { 
                                         clearErrors("imagem"); 
@@ -294,14 +309,18 @@ const Informacoes = () => {
                                     }
                                     return updated; 
                                 });  
+
                                 const watched = watch("imagem") as FileList | undefined; //Obtem o valor atual após a remoção para atualizar o estado da imagem
                                 const currentArray: File[] = watched ? Array.from(watched) : []; //Cria um novo array de arquivos a partir do Filelist
                                 const updateFiles = currentArray.filter((_, i) => i !== index); //Remove o arquivo do array
                                 setValue("imagem", updateFiles.length > 0 ? (updateFiles as unknown as FileList) : undefined); //Atualiza o valor do campo no RHF
 
+                                //verifica se o input existe
                                 if (fileInputRef.current) {  
+                                    //cria um novo FileList
                                     const dt = new DataTransfer(); 
                                     updateFiles.forEach((f) => dt.items.add(f)); 
+                                    
                                     try { 
                                             fileInputRef.current.files = dt.files;
                                         } catch { 

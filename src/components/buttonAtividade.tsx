@@ -11,9 +11,10 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 
 type ButtonAtividadeProps = {
   publicacaoSelecionada?: string | null;
+  onVoltar: () => void 
 }
 
-function ButtonAtividade({ publicacaoSelecionada}: ButtonAtividadeProps) {
+function ButtonAtividade({ publicacaoSelecionada, onVoltar}: ButtonAtividadeProps) {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -28,11 +29,10 @@ function ButtonAtividade({ publicacaoSelecionada}: ButtonAtividadeProps) {
          {publicacaoSelecionada && (
          <Button
           display={{ base: "none", md: "flex" }}
-          as="a"
-          href="/"
           border="1px solid gray"
           bg="white"
           _hover={{ bg: "white" }}
+          onClick={onVoltar} 
         >
           Voltar
         </Button> 
@@ -47,7 +47,12 @@ function ButtonAtividade({ publicacaoSelecionada}: ButtonAtividadeProps) {
             bg: "green.400",
           }}
         >
-          <Icon as={IoMdAddCircleOutline} boxSize={5} mr={2} />
+          <Icon 
+          as={IoMdAddCircleOutline}
+          boxSize={6}
+          mr={2} 
+          />
+
           <Text > Novo registro </Text>
         </Button>
       </Flex>

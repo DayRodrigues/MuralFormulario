@@ -43,24 +43,33 @@ export const CardPublicacao = ({  //props
 }: CardPublicacaoProps) => {
 
     return (
-        <Card position="relative" boxShadow="0 0 20px rgba(0, 0, 0, 0.25)" >
+        <Card 
+        position="relative" 
+        boxShadow="0 0 20px rgba(0, 0, 0, 0.25)" 
+        borderWidth={destaque ? "2px" : "1px"}
+        borderColor={destaque ? "#ebc137" : "gray.200"}
+        >
 
             {destaque && (  //Se destaque for verdadeiro renderize
-            <Flex
-            justifyContent="flex-end"
-            >
-                <Tooltip label="Destaque" hasArrow>
-                    <Icon
-                        as={TiStarFullOutline}
-                        boxSize={50}
-                        position="absolute"                        
-                        color="#ebc137"
-                        cursor="pointer"
-                        top="-20px"
-                        right="-15px"
-                    />
-                </Tooltip>
-            </Flex>
+                <Flex
+                    justifyContent="flex-end"
+                >
+                    <Tooltip label="Destaque" hasArrow>
+                        <Icon
+                            as={TiStarFullOutline}
+                            boxSize={{base:35, md:50}}
+                            position="absolute"
+                            color="#ebc137"
+                            cursor="pointer"
+                            top={{base:"-4",md:"-22px"}}
+                            right={{base:"-4",md:"-26px"}}
+                            transition="filter 0.3s ease"
+                            _hover={{
+                                filter:"drop-shadow(0 0 4px #e0be27)"
+                            }}
+                        />
+                    </Tooltip>
+                </Flex>
             )}
             <CardHeader display="flex" flexDirection="column">
                 <Heading size="md">{titulo}</Heading>
