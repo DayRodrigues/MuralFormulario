@@ -22,7 +22,6 @@ const Publicacoes = [{
   data: "30/03/2026",
   descricao: "No dia do reflorestamento da árvore na escola, todos estão convidados a participar dessa ação especial em favor do meio ambiente. Será um momento de união e aprendizado, em que juntos vamos plantar e cuidar da natureza. Contamos com a presença de todos para tornar esse dia ainda mais significativo!",
   imagem: true,
-  destaque: false,
   responsavel: "Maria",
   cargo: "Diretor(a)",
   segmento: "Todos",
@@ -66,9 +65,9 @@ const Publicacao = ({ publicacaoSelecionada, setPublicacaoSelecionada }: Publica
           pl="10px"
           fontSize={{ base: "18px", lg: "28px" }}
         >
-           {publicacaoSelecionada ? "Publicação" : "Publicações"}
+          Publicação
         </Heading>
-
+      
         {/* Se um card estiver selecionado, mostra ele */}
         {publicacaoSelecionada === "Card1" && (
           <Card1 onVoltar={() => setPublicacaoSelecionada(null)} />
@@ -80,35 +79,28 @@ const Publicacao = ({ publicacaoSelecionada, setPublicacaoSelecionada }: Publica
           <Card3 onVoltar={() => setPublicacaoSelecionada(null)} />
         )}
 
-        {/* Se nenhuma publicação for selecionada irá mostrar o grid */}
-        {!publicacaoSelecionada && (
-          <Box py="1rem">
+        {/* Cards com destaque — centralizados em cima */}
+    <Flex justify="center" wrap="wrap" gap={5} mb={5}>
+      {Publicacoes.filter((pub) => pub.destaque).map((pub) => (
+        <Box key={pub.id} w={{ base: "100%", md: "30%" }}>
+          <CardPublicacao
+            {...pub}
+            onVerMais={() => setPublicacaoSelecionada(pub.id)}
+          />
+        </Box>
+      ))}
+    </Flex>
 
-            {/* Cards com destaque em cima */}
-            <Flex justify="flex-start" wrap="wrap" gap={5} mb={5} alignItems="stretch">
-              {Publicacoes.filter((pub) => pub.destaque).map((pub) => (
-                <Box key={pub.id} w={{ base: "100%", md: "calc(33.333% - 20px)" }} display="flex">
-                  <CardPublicacao
-                    {...pub}
-                    onVerMais={() => setPublicacaoSelecionada(pub.id)}
-                  />
-                </Box>
-              ))}
-            </Flex>
-
-            {/* Cards sem destaque — embaixo em grid normal */}
-            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5}>
-              {Publicacoes.filter((pub) => !pub.destaque).map((pub) => (
-                <CardPublicacao
-                  key={pub.id}
-                  {...pub}
-                  onVerMais={() => setPublicacaoSelecionada(pub.id)}
-                />
-              ))}
+    {/* Cards sem destaque — embaixo em grid normal */}
+    <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5}>
+      {Publicacoes.filter((pub) => !pub.destaque).map((pub) => (
+        <CardPublicacao
+          key={pub.id}
+          {...pub}
+          onVerMais={() => setPublicacaoSelecionada(pub.id)}
+        />
+      ))}
             </SimpleGrid>
-
-          </Box>
-        )}
       </Box>
     </Flex>
   )

@@ -13,11 +13,12 @@ import {
     Button,
 } from '@chakra-ui/react'
 
-type Card1Props = {
+type Card1Props = { 
     onVoltar: () => void
 }
 
-export default function Card1({ onVoltar }: Card1Props) {
+export default function Card1({ onVoltar }: Card1Props  ) {
+
 
     return (
         <>
@@ -29,7 +30,7 @@ export default function Card1({ onVoltar }: Card1Props) {
                 justifyContent="center"
             >
                 <Box
-                    w={{ base: "100%", md: "80%", lg: "60%" }}
+                    w={{ base: "100%", md: "80%", lg: "60%"  }}
                     m={{ base: "auto", md: "30px" }}
                 >
                     <Stack spacing='4' px={{ base: "20px" }} >
@@ -40,7 +41,7 @@ export default function Card1({ onVoltar }: Card1Props) {
                         >
                             <CardHeader >
                                 <Heading justifySelf="center"
-                                    size='md'> Reflorestamento </Heading>
+                                size='md'> Reflorestamento </Heading>
                                 <Text fontSize="sm" color="gray.700" my="1rem">
                                     30/03/2026
                                 </Text>
@@ -68,22 +69,22 @@ export default function Card1({ onVoltar }: Card1Props) {
                                         Contamos com a presença de todos para tornar esse dia ainda mais significativo!
                                     </Text>
                                     <Flex
-                                        w="100%"
-                                        justifyContent="flex-end"
+                                    w="100%"
+                                    justifyContent="flex-end"
                                     >
-                                        <Button
-                                            display={{ base: "flex", md: "none" }}
-                                            onClick={onVoltar}
-                                            mt={4}
-                                            bg="white"
-                                            border="1px solid"
-                                            borderColor="gray.400"
-                                            _hover={{
-                                                bg: "white"
-                                            }}
-                                        >
-                                            Voltar
-                                        </Button>
+                                    <Button 
+                                    display={{base:"flex", md:"none"}}
+                                    onClick={onVoltar}
+                                    mt={4} 
+                                    bg="white"
+                                    border="1px solid"
+                                    borderColor="gray.400"
+                                    _hover={{
+                                        bg:"white"
+                                    }}
+                                    >
+                                        Voltar
+                                    </Button>
                                     </Flex>
                                 </VStack>
                             </CardBody>

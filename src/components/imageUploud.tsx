@@ -67,7 +67,7 @@ const ImageUpload = ({ //Props
                     }}
                     onClick={onClear}
                 >
-                    Excluir todos
+                    Excluir
                 </Button>
                 )}
             </Flex>
