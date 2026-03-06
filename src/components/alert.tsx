@@ -6,10 +6,10 @@ import {
 export function useAlert() {
   const toast = useToast()
 
-  const success = (message: string = "Sucesso!") => {
+  const success = (message: string = "Sucesso!", description: string = "") => {
     toast({
       title: message,
-      description: "Publicação realizada com sucesso!",
+      description: description,
       position: "bottom-right",
       isClosable: true,
       status: "success",
@@ -18,5 +18,4 @@ export function useAlert() {
   }
 
   return { success }
-
 }

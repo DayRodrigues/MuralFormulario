@@ -121,7 +121,7 @@ const Informacoes = () => {
         console.log(data.imagem);
         reset();
         setPreviewImages([]);
-        success("Atividade públicada!")
+        success("Públicado", "Públicação realizada com sucesso!")
         if (fileInputRef.current) {
             fileInputRef.current.value = "";
         }

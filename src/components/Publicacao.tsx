@@ -10,6 +10,7 @@ import { CardPublicacao } from './CardPublicacao'
 import Card1 from './card1'
 import Card2 from './card2'
 import Card3 from './card3'
+import { useAlert } from './alert'
 
 type PublicacaoProps = {
   publicacaoSelecionada: string | null
@@ -51,8 +52,10 @@ const Publicacoes = [{
 }]
 
 const Publicacao = ({ publicacaoSelecionada, setPublicacaoSelecionada }: PublicacaoProps) => {
+   const {success} = useAlert ()
 
   return (
+    
     <Flex
       w="90%"
       p="10px"
@@ -91,6 +94,11 @@ const Publicacao = ({ publicacaoSelecionada, setPublicacaoSelecionada }: Publica
                   <CardPublicacao
                     {...pub}
                     onVerMais={() => setPublicacaoSelecionada(pub.id)}
+                    onExcluir={() => {console.log("Excluído", pub.id)
+                      success("Excluído","Públicação excluída com sucesso!")
+                    }}
+
+                  editar={() => console.log("Editar", pub.id)}
                   />
                 </Box>
               ))}
@@ -103,6 +111,8 @@ const Publicacao = ({ publicacaoSelecionada, setPublicacaoSelecionada }: Publica
                   key={pub.id}
                   {...pub}
                   onVerMais={() => setPublicacaoSelecionada(pub.id)}
+                  onExcluir={() => console.log("Excluído", pub.id)}
+                  editar={() => console.log("Editar", pub.id)}
                 />
               ))}
             </SimpleGrid>
