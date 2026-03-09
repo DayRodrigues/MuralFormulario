@@ -193,7 +193,7 @@ function Filtro() {
               color="black"
               bg="gray.200"
               _hover={{
-                bg: "gray.300"
+                bg: "gray.400"
               }}
             >
               <Icon as={IoIosSearch} boxSize="23px" mr={2} />

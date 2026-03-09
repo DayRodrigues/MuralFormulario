@@ -13,7 +13,6 @@ const MuralPublicacao = () => {
     {/* Recebe o estado do componente pai para saber quando mostrar o botão Voltar*/}
       <ButtonAtividade
         publicacaoSelecionada={publicacaoSelecionada}
-        onVoltar={() => setPublicacaoSelecionada(null)} 
       />
       
     {/* Recebe o estado e a função do componente pai para exibir e trocar o card selecionado */}

@@ -35,9 +35,9 @@ export default function Card2({ onVoltar }: Card2Props) {
                             boxShadow="0 0 30px rgba(0, 0, 0, 0.25)"
                         >
                             <CardHeader>
-                                <Heading
-                                    justifySelf="center"
-                                    size='md'> Reunião </Heading>
+                                <Heading 
+                                justifySelf="center" 
+                                size='md'> Reunião </Heading>
                                 <Text fontSize="sm" color="gray.700">
                                     02/03/2026
                                 </Text>
@@ -54,22 +54,22 @@ export default function Card2({ onVoltar }: Card2Props) {
                                         sugestões de reforço, projetos extras.Encerramento: resumo das decisões e próximos passos.
                                     </Text>
                                     <Flex
-                                        w="100%"
-                                        justifyContent="flex-end"
+                                    w="100%"
+                                    justifyContent="flex-end"
                                     >
-                                        <Button
-                                            display={{ base: "flex", md: "none" }}
-                                            onClick={onVoltar}
-                                            mt={4}
-                                            bg="white"
-                                            border="1px solid"
-                                            borderColor="gray.400"
-                                            _hover={{
-                                                bg: "white"
-                                            }}
-                                        >
-                                            Voltar
-                                        </Button>
+                                    <Button
+                                    display={{base:"flex", md:"none"}}
+                                    onClick={onVoltar}  
+                                    mt={4} 
+                                    bg="white"
+                                    border="1px solid"
+                                    borderColor="gray.400"
+                                    _hover={{
+                                        bg:"white"
+                                    }}
+                                    >
+                                        Voltar
+                                    </Button>
                                     </Flex>
                                 </VStack>
                             </CardBody>

@@ -23,7 +23,6 @@ const Publicacoes = [{
   data: "30/03/2026",
   descricao: "No dia do reflorestamento da árvore na escola, todos estão convidados a participar dessa ação especial em favor do meio ambiente. Será um momento de união e aprendizado, em que juntos vamos plantar e cuidar da natureza. Contamos com a presença de todos para tornar esse dia ainda mais significativo!",
   imagem: true,
-  destaque: false,
   responsavel: "Maria",
   cargo: "Diretor(a)",
   segmento: "Todos",
@@ -69,9 +68,9 @@ const Publicacao = ({ publicacaoSelecionada, setPublicacaoSelecionada }: Publica
           pl="10px"
           fontSize={{ base: "18px", lg: "28px" }}
         >
-           {publicacaoSelecionada ? "Publicação" : "Publicações"}
+          Publicação
         </Heading>
-
+      
         {/* Se um card estiver selecionado, mostra ele */}
         {publicacaoSelecionada === "Card1" && (
           <Card1 onVoltar={() => setPublicacaoSelecionada(null)} />
@@ -116,9 +115,6 @@ const Publicacao = ({ publicacaoSelecionada, setPublicacaoSelecionada }: Publica
                 />
               ))}
             </SimpleGrid>
-
-          </Box>
-        )}
       </Box>
     </Flex>
   )
