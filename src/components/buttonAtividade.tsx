@@ -31,6 +31,7 @@ function ButtonAtividade({ publicacaoSelecionada, onVoltar}: ButtonAtividadeProp
           onClick={onVoltar}
           border="1px solid gray"
           bg="white"
+          display={{base:"none", md:"flex"}}
           _hover={{ bg: "white" }}
         >
           Voltar

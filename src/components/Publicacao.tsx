@@ -76,7 +76,7 @@ const Publicacao = ({ publicacaoSelecionada, setPublicacaoSelecionada }: Publica
           pl="10px"
           fontSize={{ base: "18px", lg: "28px" }}
         >
-          Publicação
+         {publicacaoSelecionada ? "Publicação" : publicacoes.length === 1 ? "Publicação" : "Publicações"}
         </Heading>
         
         {publicacoes.length === 0 && (
