@@ -5,17 +5,21 @@ import {
   Heading,
   Box,
   SimpleGrid,
+  Text,
 } from '@chakra-ui/react'
 import { CardPublicacao } from './CardPublicacao'
 import Card1 from './card1'
 import Card2 from './card2'
 import Card3 from './card3'
 import { useAlert } from './alert'
+import { useState } from 'react'
 
 type PublicacaoProps = {
   publicacaoSelecionada: string | null
   setPublicacaoSelecionada: (id: string | null) => void
 }
+
+type Publicacao = typeof Publicacoes[0]
 
 const Publicacoes = [{
   id: "Card1",
@@ -53,6 +57,9 @@ const Publicacoes = [{
 const Publicacao = ({ publicacaoSelecionada, setPublicacaoSelecionada }: PublicacaoProps) => {
    const {success} = useAlert ()
 
+    const [publicacoes, setPublicacoes] = useState(Publicacoes)
+    const [publicacaoEditada, setPublicacaoEditada] = useState<Publicacao | null>(null)
+
   return (
     
     <Flex
@@ -61,6 +68,7 @@ const Publicacao = ({ publicacaoSelecionada, setPublicacaoSelecionada }: Publica
       margin="auto"
       borderRadius="xl"
     >
+      
       <Box w="100%">
         <Heading
           color="#666"
@@ -70,6 +78,14 @@ const Publicacao = ({ publicacaoSelecionada, setPublicacaoSelecionada }: Publica
         >
           Publicação
         </Heading>
+        
+        {publicacoes.length === 0 && (
+        <Flex justifyContent="center">
+          <Text fontSize= "20px" mt="20px" color="gray.700">
+              Nenhuma publicação encontrada
+          </Text>
+        </Flex>
+        )}
       
         {/* Se um card estiver selecionado, mostra ele */}
         {publicacaoSelecionada === "Card1" && (
@@ -88,16 +104,16 @@ const Publicacao = ({ publicacaoSelecionada, setPublicacaoSelecionada }: Publica
 
             {/* Cards com destaque em cima */}
             <Flex justify="flex-start" wrap="wrap" gap={5} mb={5} alignItems="stretch">
-              {Publicacoes.filter((pub) => pub.destaque).map((pub) => (
+              {publicacoes.filter((pub) => pub.destaque).map((pub) => (
                 <Box key={pub.id} w={{ base: "100%", md: "calc(33.333% - 20px)" }} display="flex">
                   <CardPublicacao
                     {...pub}
                     onVerMais={() => setPublicacaoSelecionada(pub.id)}
-                    onExcluir={() => {console.log("Excluído", pub.id)
-                      success("Excluído","Públicação excluída com sucesso!")
+                    onExcluir={() => {
+                      setPublicacoes(publicacoes.filter(p => p.id !== pub.id))
+                      success("Exluído", "Publicação excluída com sucesso!")
                     }}
-
-                  editar={() => console.log("Editar", pub.id)}
+                  editar={() => setPublicacaoEditada(pub)}
                   />
                 </Box>
               ))}
@@ -105,16 +121,21 @@ const Publicacao = ({ publicacaoSelecionada, setPublicacaoSelecionada }: Publica
 
             {/* Cards sem destaque — embaixo em grid normal */}
             <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5}>
-              {Publicacoes.filter((pub) => !pub.destaque).map((pub) => (
+              {publicacoes.filter((pub) => !pub.destaque).map((pub) => (
                 <CardPublicacao
                   key={pub.id}
                   {...pub}
                   onVerMais={() => setPublicacaoSelecionada(pub.id)}
-                  onExcluir={() => console.log("Excluído", pub.id)}
-                  editar={() => console.log("Editar", pub.id)}
+                  onExcluir={() => {
+                    setPublicacoes(publicacoes.filter(p => p.id !== pub.id))
+                    success("Excluído", "Publicação excluída com sucesso.")
+                  }}
+                  editar={() => setPublicacaoEditada(pub)}
                 />
               ))}
             </SimpleGrid>
+         </Box>
+        )}
       </Box>
     </Flex>
   )

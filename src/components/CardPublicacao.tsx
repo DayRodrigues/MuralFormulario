@@ -19,6 +19,7 @@ import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useState } from "react"
 import { ConfirmarExclusao } from './alertDialog'
+import Publicacao from "./Publicacao";
  
 type CardPublicacaoProps = { //tipos
     titulo: string;
