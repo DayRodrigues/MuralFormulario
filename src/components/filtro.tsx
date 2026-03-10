@@ -105,11 +105,13 @@ function Filtro() {
           onClick={onToggle}
           mx={{ base: "10px", md: "100px"}}
           border="1px solid"
-          borderColor="gray.400"
-          bg="white"
+          borderColor="transparent"
+          bg="none"
           color="black"
           _hover={{
-            bg: "gray.100"
+            bg:"none",
+            border:"1px solid",
+            borderColor:"gray.400",
           }}
         >
           <Icon as={FaFilter} boxSize="15px" mr={2} />

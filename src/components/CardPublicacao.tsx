@@ -34,6 +34,7 @@ type CardPublicacaoProps = { //tipos
     onVerMais: () => void;
     onExcluir: () => void;
     editar:() => void;
+    modoEdicao?: boolean;
 };
 
 export const CardPublicacao = ({  //props
@@ -49,6 +50,7 @@ export const CardPublicacao = ({  //props
     onVerMais,
     onExcluir,
     editar,
+    modoEdicao = true,
 }: CardPublicacaoProps) => {
 
     const [ isOpen, setIsOpen] = useState(false)
@@ -88,7 +90,8 @@ export const CardPublicacao = ({  //props
                             right={{ base: "-4", md: "-26px" }}
                             transition="filter 0.3s ease"
                             _hover={{
-                                filter: "drop-shadow(0 0 4px #e0be27)"
+                                filter: "drop-shadow(0 0 4px #e0be27)",
+                                transform:" scale(1)"
                             }}
                         />
                     </Tooltip>
@@ -98,7 +101,7 @@ export const CardPublicacao = ({  //props
                 <Heading size="md">{titulo}</Heading>
                 <Text fontSize="sm" color="gray.700" >{data}</Text>
             </CardHeader>
-
+            
             <CardBody  >
                 <VStack align="start" spacing={2}>
                     <Tooltip label={descricao}>  {/* mostra o texto completo na prévia  */}
@@ -125,6 +128,7 @@ export const CardPublicacao = ({  //props
                     </Text>
 
                 </VStack>
+
             </CardBody>
 
             <CardFooter justifyContent="flex-end" gap="10px">{/* Executa a função */}
@@ -154,7 +158,7 @@ export const CardPublicacao = ({  //props
                     </Tooltip>
                     {/* Excluir */}
                 </Button>
-
+                 {!modoEdicao && (   
                 <Button
                 onClick={editar}
                     bg="none"
@@ -173,6 +177,7 @@ export const CardPublicacao = ({  //props
                     </Icon>
                     Editar
                 </Button>
+                )}
 
                 <Button
                     onClick={onVerMais}

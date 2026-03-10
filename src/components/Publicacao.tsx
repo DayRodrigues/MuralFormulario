@@ -113,6 +113,7 @@ const Publicacao = ({ publicacaoSelecionada, setPublicacaoSelecionada }: Publica
                       setPublicacoes(publicacoes.filter(p => p.id !== pub.id))
                       success("Exluído", "Publicação excluída com sucesso!")
                     }}
+                    modoEdicao={publicacaoEditada?.id === pub.id}
                   editar={() => setPublicacaoEditada(pub)}
                   />
                 </Box>
@@ -130,6 +131,7 @@ const Publicacao = ({ publicacaoSelecionada, setPublicacaoSelecionada }: Publica
                     setPublicacoes(publicacoes.filter(p => p.id !== pub.id))
                     success("Excluído", "Publicação excluída com sucesso.")
                   }}
+                  modoEdicao={publicacaoEditada?.id === pub.id}
                   editar={() => setPublicacaoEditada(pub)}
                 />
               ))}
